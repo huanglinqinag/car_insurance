@@ -54,7 +54,10 @@ public class MyRealm extends AuthorizingRealm {
         //for (Role role:user.getRoles()) {
             //System.out.println("角色"+ role.getRoleName());
             //添加角色
+
             simpleAuthorizationInfo.addRole(user.getRolename());
+
+
 
         //}
 

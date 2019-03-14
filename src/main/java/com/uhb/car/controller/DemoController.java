@@ -7,6 +7,7 @@ import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.DemoService;
 import com.uhb.car.util.JWTUtil;
 import io.swagger.annotations.*;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,11 +51,27 @@ public class DemoController {
     @RequestMapping(value = "/tolist" ,method = RequestMethod.GET )
     @ResponseBody
     @RequiresRoles({"admin"})
-    public ResponseBean list() throws Exception {
+    public ResponseBean list() throws AuthenticationException {
         List<Users> list=demoService.findAll();
         System.out.println(list.size());
 
        return new ResponseBean(200,"ok",list);
         //return new ResponseBean(200,"12",12);
     }
+
+    @ApiOperation(value = "异常", notes = "不需要参数")
+    @RequestMapping(value = "/yichang" ,method = RequestMethod.GET )
+    @ResponseBody
+    public ResponseBean yichang() throws UnauthorizedException {
+        throw new UnauthorizedException("权限不足");
+        //return new ResponseBean(200,"12",12);
+    }
+    @RequestMapping("/401")
+    public ResponseBean si(){
+
+        return new ResponseBean(401,"没有权限","1232");
+
+    }
+
+
 }
