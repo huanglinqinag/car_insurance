@@ -1,4 +1,4 @@
-package com.uhb.car.util;
+package com.uhb.car.util.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

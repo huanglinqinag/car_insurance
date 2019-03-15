@@ -4,6 +4,7 @@ import com.uhb.car.bean.ResponseBean;
 import io.swagger.annotations.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @ClassName:文件上传
@@ -15,10 +16,17 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class FileController {
     @ApiOperation(value = "图片上传", notes = "需要一参数")
-    @ApiImplicitParam(name = "file", value = "文件", required = true, dataType = "String")
-    @RequestMapping(value = "/file", method = RequestMethod.GET)
+    @ApiImplicitParam(name = "fileName", value = "文件名", required = true, dataType = "file")
+    @RequestMapping(value = "/file",consumes = "multipart/*",headers="content-type=multipart/from-data")
     @ResponseBody
-    public String File(){
-        return "123";
+    public ResponseBean File( MultipartFile file){
+        if (file.isEmpty()){
+            return new ResponseBean(500,"文件不存在","123");
+        }
+        String fileName=file.getOriginalFilename();
+        int size =(int) file.getSize();
+        //String path ="";
+
+        return new ResponseBean(500,"文件不存在","123");
     }
 }

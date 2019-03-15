@@ -3,9 +3,8 @@ package com.uhb.car.shiro;
 
 import com.uhb.car.entity.Users;
 import com.uhb.car.services.DemoService;
-import com.uhb.car.shiro.JWTToken;
 
-import com.uhb.car.util.JWTUtil;
+import com.uhb.car.util.jwt.JWTUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;

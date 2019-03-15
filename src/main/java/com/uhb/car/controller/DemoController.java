@@ -5,7 +5,7 @@ import com.uhb.car.bean.ResponseBean;
 import com.uhb.car.entity.Users;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.DemoService;
-import com.uhb.car.util.JWTUtil;
+import com.uhb.car.util.jwt.JWTUtil;
 import io.swagger.annotations.*;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
