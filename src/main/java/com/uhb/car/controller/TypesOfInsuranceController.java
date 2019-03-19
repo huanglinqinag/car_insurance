@@ -78,7 +78,7 @@ public class TypesOfInsuranceController {
     @ApiOperation(value = "分页查询商业险", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int")
     })
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseBean findAll(int pageSize, int pageNumber, Pageable pageable) {
@@ -94,8 +94,10 @@ public class TypesOfInsuranceController {
     @ApiOperation(value = "动态查询", notes = "需要四个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String "),
+            @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险ID", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int")
     })
     @RequestMapping(value = "/findAllTypesOfInsuranceEntities", method = RequestMethod.GET)
     public ResponseBean findAllTypesOfInsuranceEntities(String insuranceName, Integer pageSize, Integer pageNumber) {
