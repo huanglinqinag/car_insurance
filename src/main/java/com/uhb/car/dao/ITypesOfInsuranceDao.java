@@ -8,8 +8,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 /**
- * @interfaceName:ITypesOfInsuranceDao
+ * @Dome interface:商业险的CRUD Dao
  * @Author: LJW
  * @Date: 2019/3/17 14:16
  * @Version 1.0
@@ -23,6 +25,14 @@ public interface ITypesOfInsuranceDao extends JpaRepository<TypesOfInsuranceEnti
      */
     @Override
     TypesOfInsuranceEntity save(TypesOfInsuranceEntity types);
+
+    /**
+     * 根据商业险名称进行模糊查询
+     *
+     * @param insuranceName
+     * @return List<TypesOfInsuranceEntity>
+     */
+    List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName);
 
     /**
      * 根据商业险Id删除

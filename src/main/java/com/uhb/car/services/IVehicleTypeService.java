@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface IVehicleTypeService {
     /**
-     * 分页查询
+     * 添加一个车辆类型
      *
-     * @param pageable
-     * @return List<VehicleTypeEntity>
+     * @param vehicleTypeEntity
+     * @return VehicleTypeEntity
      */
-    Page<VehicleTypeEntity> findAll(Pageable pageable);
+    VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
 
     /**
      * 模糊查询
@@ -31,12 +31,20 @@ public interface IVehicleTypeService {
     void deleteById(Integer id);
 
     /**
-     * 添加一个车辆类型
+     * 分页查询
      *
-     * @param vehicleTypeEntity
-     * @return VehicleTypeEntity
+     * @param pageable
+     * @return List<VehicleTypeEntity>
      */
-    VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
+    Page<VehicleTypeEntity> findAll(Pageable pageable);
 
+    /**
+     * 动态查询车辆类型
+     *
+     * @param typeName
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<VehicleTypeEntity>
+     */
     Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber);
 }

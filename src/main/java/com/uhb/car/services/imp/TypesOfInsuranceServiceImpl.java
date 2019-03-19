@@ -34,6 +34,11 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
     }
 
     @Override
+    public List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName) {
+        return iTypesOfInsuranceDao.findAllByInsuranceNameContaining(insuranceName);
+    }
+
+    @Override
     public int deleteAllByTypesOfInsuranceId(int typesOfInsuranceId) {
         return iTypesOfInsuranceDao.deleteAllByTypesOfInsuranceId(typesOfInsuranceId);
     }
@@ -45,7 +50,7 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
 
 
     @Override
-    public Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName,Integer pageSize, Integer pageNumber) {
+    public Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName, Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iTypesOfInsuranceDao.findAll(new Specification<TypesOfInsuranceEntity>() {
             @Override

@@ -22,16 +22,57 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
     @Autowired
     IVehicleTypeDao iVehicleTypeDao;
 
+    /**
+     * 添加一条车辆类型数据
+     *
+     * @param vehicleTypeEntity
+     * @return VehicleTypeEntity
+     */
+    @Override
+    public VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity) {
+        return iVehicleTypeDao.save(vehicleTypeEntity);
+    }
+
+    /**
+     * 根据商业险Id模糊查询
+     *
+     * @param typeName
+     * @return List<VehicleTypeEntity>
+     */
+    @Override
+    public List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName) {
+        return iVehicleTypeDao.findAllByTypeNameContaining(typeName);
+    }
+
+    /**
+     * 分页查询车辆类型
+     *
+     * @param pageable
+     * @return Page<VehicleTypeEntity>
+     */
     @Override
     public Page<VehicleTypeEntity> findAll(Pageable pageable) {
         return iVehicleTypeDao.findAll(pageable);
     }
 
-
+    /**
+     * 根据Id删除一条车辆信息
+     *
+     * @param id
+     */
     @Override
-    public List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName) {
-        return iVehicleTypeDao.findAllByTypeNameContaining(typeName);
+    public void deleteById(Integer id) {
+        iVehicleTypeDao.deleteById(id);
     }
+
+    /**
+     * 动态查询车辆类型
+     *
+     * @param typeName
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<VehicleTypeEntity>
+     */
 
     @Override
     public Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber) {
@@ -50,14 +91,5 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
         }, pageable);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        iVehicleTypeDao.deleteById(id);
-    }
-
-    @Override
-    public VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity) {
-        return iVehicleTypeDao.save(vehicleTypeEntity);
-    }
 
 }

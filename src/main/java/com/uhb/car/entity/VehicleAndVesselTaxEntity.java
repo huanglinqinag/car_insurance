@@ -12,21 +12,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "vehicle_and_vessel_tax", schema = "vehicle", catalog = "")
 public class VehicleAndVesselTaxEntity {
-    private int vehicleAndVesselTaxId;
+    private int vehicleVesselTaxId;
     private int displacementId;
     private int price;
-    @ManyToOne
-    @JoinColumn(name = "displacement_id")
-    private DisplacementEntity displacementEntity;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+//可选属性optional=false,表示author不能为空。删除文章，不影响用户
+    @JoinColumn(name = "displacement_id")//设置VehicleAndVesselTax表中的关联字段
+    private DisplacementEntity displacement;
 
     @Id
     @Column(name = "vehicle_and_vessel_tax_id")
-    public int getVehicleAndVesselTaxId() {
-        return vehicleAndVesselTaxId;
+    public int getVehicleVesselTaxId() {
+        return vehicleVesselTaxId;
     }
 
-    public void setVehicleAndVesselTaxId(int vehicleAndVesselTaxId) {
-        this.vehicleAndVesselTaxId = vehicleAndVesselTaxId;
+    public void setVehicleVesselTaxId(int vehicleVesselTaxId) {
+        this.vehicleVesselTaxId = vehicleVesselTaxId;
     }
 
     @Basic
@@ -58,13 +59,13 @@ public class VehicleAndVesselTaxEntity {
             return false;
         }
         VehicleAndVesselTaxEntity that = (VehicleAndVesselTaxEntity) o;
-        return vehicleAndVesselTaxId == that.vehicleAndVesselTaxId &&
+        return vehicleVesselTaxId == that.vehicleVesselTaxId &&
                 displacementId == that.displacementId &&
                 price == that.price;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vehicleAndVesselTaxId, displacementId, price);
+        return Objects.hash(vehicleVesselTaxId, displacementId, price);
     }
 }

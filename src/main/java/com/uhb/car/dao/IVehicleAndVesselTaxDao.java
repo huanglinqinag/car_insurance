@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * @interfaceName:IVehicleAndVesselTaxDao
+ * @Dome interface:对车船税进行CRUD Dao
  * @Author: LJW
  * @Date: 2019/3/15 13:04
  * @Version 1.0
@@ -27,14 +27,14 @@ public interface IVehicleAndVesselTaxDao extends JpaRepository<VehicleAndVesselT
     @Override
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
-    /*  *//**
-     * 根据车船随id删除
+    /**
+     * 根据车船税id删除
      *
-     * @param vehicleAndVesselTaxId
+     * @param vehicleVesselTaxId
      * @return int
-     *//*
+     */
 
-    int deleteByVehicleAndVesselTaxId(int vehicleAndVesselTaxId);*/
+    int deleteByVehicleVesselTaxId(int vehicleVesselTaxId);
 
     /**
      * 分页查询所有车船税

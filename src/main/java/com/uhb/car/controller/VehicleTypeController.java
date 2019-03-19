@@ -24,7 +24,7 @@ public class VehicleTypeController {
     @Autowired
     private VehicleTypeServiceImpl vehicleTypeServiceImpl;
 
-    @ApiOperation(value = "添加车辆类型", notes = "需要两个参数")
+    @ApiOperation(value = "添加车辆类型", notes = "需要车辆类型Id和车辆类型名称")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "vehicleTypeId", value = "车辆类型Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "typeName", value = "车辆类型名称", required = true, dataType = "String"),
@@ -39,38 +39,7 @@ public class VehicleTypeController {
         }
     }
 
-    @ApiOperation(value = "修改车辆类型", notes = "需要两个参数")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "vehicleTypeId", value = "车辆类型Id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "typeName", value = "车辆类型名称", required = true, dataType = "String"),
-    })
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public ResponseBean modify(VehicleTypeEntity vehicleTypeEntity) {
-        VehicleTypeEntity typeEntity = vehicleTypeServiceImpl.save(vehicleTypeEntity);
-        if (typeEntity != null) {
-            return new ResponseBean(200, "成功", typeEntity);
-        } else {
-            throw new UnauthorizedException();
-        }
-    }
-
-    @ApiOperation(value = "分页查询", notes = "需要两个参数")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageNumber", value = "显示条数", required = true, dataType = "int"),
-    })
-    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ResponseBean findAll(Pageable pageable, int pageSize, int pageNumber) {
-        pageable = new PageRequest(pageSize, pageNumber);
-        Page<VehicleTypeEntity> vehicleTypeEntityList = vehicleTypeServiceImpl.findAll(pageable);
-        if (vehicleTypeEntityList != null) {
-            return new ResponseBean(200, "lsjj", vehicleTypeEntityList);
-        } else {
-            throw new UnauthorizedException();
-        }
-    }
-
-    @ApiOperation(value = "模糊查询", notes = "需要一个参数")
+    @ApiOperation(value = "根据车辆类型模糊查询", notes = "需要车辆类型")
     @ApiImplicitParam(name = "typeName", value = "车辆类型", required = true, dataType = "String")
     @RequestMapping(value = "/findAllByTypeNameContaining", method = RequestMethod.GET)
     public ResponseBean findAllByTypeNameContaining(String typeName) {
@@ -82,7 +51,38 @@ public class VehicleTypeController {
         }
     }
 
-    @ApiOperation(value = "动态查询", notes = "需要两个参数")
+    @ApiOperation(value = "删除车辆类型", notes = "需要车辆类型Id")
+    @ApiImplicitParam(name = "id", value = "车辆类型ID", required = true, dataType = "int")
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
+    public ResponseBean deleteById(int id) {
+        try {
+            vehicleTypeServiceImpl.deleteById(id);
+            return new ResponseBean(200, "成功", id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("test");
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "分页查询车辆类型", notes = "需要两个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "显示条数", required = true, dataType = "int"),
+    })
+    @RequestMapping(value = "/findAllVehicleTypePaging", method = RequestMethod.GET)
+    public ResponseBean findAllVehicleTypePaging(Pageable pageable, int pageSize, int pageNumber) {
+        pageable = new PageRequest(pageSize, pageNumber);
+        Page<VehicleTypeEntity> vehicleTypeEntityList = vehicleTypeServiceImpl.findAll(pageable);
+        if (vehicleTypeEntityList != null) {
+            return new ResponseBean(200, "lsjj", vehicleTypeEntityList);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
+
+    @ApiOperation(value = "动态查询车辆类型", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "typeName", value = "类型名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
@@ -98,18 +98,5 @@ public class VehicleTypeController {
         }
     }
 
-    @ApiOperation(value = "删除车辆类型", notes = "需要Id")
-    @ApiImplicitParam(name = "id", value = "车辆类型ID", required = true, dataType = "int")
-    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
-    public ResponseBean deleteById(int id) {
-        try {
-            vehicleTypeServiceImpl.deleteById(id);
-            return new ResponseBean(200, "成功", id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("test");
-            throw new UnauthorizedException();
-        }
-    }
 
 }

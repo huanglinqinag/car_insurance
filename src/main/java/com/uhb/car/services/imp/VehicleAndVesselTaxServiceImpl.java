@@ -11,15 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName:IVehicleAndVesselTaxService
+ * @Dome Class:对车船税进行CRUD ServiceImp
  * @Author: LJW
  * @Date: 2019/3/17 13:15
  * @Version 1.0
@@ -38,10 +35,10 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
     }
 
 
-//        @Override
-//        public int deleteByVehicleAndVesselTaxId(int vehicleAndVesselTaxId) {
-//            return iVehicleAndVesselTaxDao.deleteByVehicleAndVesselTaxId(vehicleAndVesselTaxId);
-//        }
+    @Override
+    public int deleteByVehicleVesselTaxId(int vehicleVesselTaxId) {
+        return iVehicleAndVesselTaxDao.deleteByVehicleVesselTaxId(vehicleVesselTaxId);
+    }
 
 
     @Override
@@ -51,6 +48,9 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
             @Override
             public Predicate toPredicate(Root<VehicleAndVesselTaxEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
+                if (0 != displacementEntity.getDisplacementSize()) {
+
+                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }

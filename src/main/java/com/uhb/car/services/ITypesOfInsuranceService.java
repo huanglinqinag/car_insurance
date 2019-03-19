@@ -4,6 +4,8 @@ import com.uhb.car.entity.TypesOfInsuranceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @interfaceName:商业险CUDRService
  * @Author: LJW
@@ -18,6 +20,14 @@ public interface ITypesOfInsuranceService {
      * @return TypesOfInsuranceEntity
      */
     TypesOfInsuranceEntity save(TypesOfInsuranceEntity types);
+
+    /**
+     * 根据商业险名称进行模糊查询
+     *
+     * @param insuranceName
+     * @return List<TypesOfInsuranceEntity>
+     */
+    List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName);
 
     /**
      * 根据商业险Id删除

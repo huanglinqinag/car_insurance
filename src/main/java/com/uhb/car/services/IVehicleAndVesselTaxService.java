@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @interfaceName:IVehicleAndVesselTaxService
+ * @Dome interface:对车船税进行CRUD Service
  * @Author: LJW
  * @Date: 2019/3/17 13:14
  * @Version 1.0
@@ -24,15 +24,15 @@ public interface IVehicleAndVesselTaxService {
 
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
-    /*  *//**
+    /**
      * 根据车船随id删除
      *
-     * @param vehicleAndVesselTaxId
+     * @param vehicleVesselTaxId
      * @return int
-     *//*
+     */
 
 
-    int deleteByVehicleAndVesselTaxId(int vehicleAndVesselTaxId);*/
+    int deleteByVehicleVesselTaxId(int vehicleVesselTaxId);
 
     /**
      * 分页查询所有车船税
@@ -52,5 +52,5 @@ public interface IVehicleAndVesselTaxService {
      * @param pageSize
      * @return Page<VehicleAndVesselTaxEntity>
      */
-    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic( DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize);
+    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize);
 }
