@@ -1,10 +1,9 @@
 package com.uhb.car.util.qiniuyun;
 
 
+import com.qiniu.common.Zone;
+import com.qiniu.storage.Configuration;
 
-
-
-import java.io.File;
 /**
  * @ClassName:七牛云图片配置
  * @Author: hlq
@@ -23,6 +22,8 @@ public class QiniuUtil {
      * @param localFilePath
      * @return
      */
+    Configuration cfg = new Configuration(Zone.zone0());
+
 
 
 }

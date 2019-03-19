@@ -37,4 +37,6 @@ public interface IVehicleTypeService {
      * @return VehicleTypeEntity
      */
     VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
+
+    Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber);
 }

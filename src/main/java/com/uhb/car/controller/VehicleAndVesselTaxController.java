@@ -1,6 +1,7 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.entity.DisplacementEntity;
 import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IVehicleAndVesselTaxService;
@@ -32,7 +33,13 @@ public class VehicleAndVesselTaxController {
     @Autowired
     IVehicleAndVesselTaxService iVehicleAndVesselTaxService;
 
-    @ApiOperation(value = "添加车船税", tags = "不需要参数")
+    @ApiOperation(value = "添加车船税", notes = "需要三个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vehicleAndVesselTaxId", value = "车船税Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "displacementId", value = "排量", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "price", value = "车船税Id", required = true, dataType = "int"),
+
+    })
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public ResponseBean save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
         VehicleAndVesselTaxEntity vehicleAndVesselTax = iVehicleAndVesselTaxService.save(vehicleAndVesselTaxEntity);
@@ -43,6 +50,22 @@ public class VehicleAndVesselTaxController {
         }
     }
 
+    @ApiOperation(value = "修改车船税", notes = "需要三个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vehicleAndVesselTaxId", value = "车船税Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "displacementId", value = "排量", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "price", value = "车船税Id", required = true, dataType = "int"),
+
+    })
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    public ResponseBean modify(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
+        VehicleAndVesselTaxEntity vehicleAndVesselTax = iVehicleAndVesselTaxService.save(vehicleAndVesselTaxEntity);
+        if (null != vehicleAndVesselTax) {
+            return new ResponseBean(200, "成功", vehicleAndVesselTax);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
     /*@ApiOperation(value = "根据车船税Id删除", tags = "需要车船税Id")
     @ApiImplicitParam(name = "vehicleAndVesselTaxId", value = "车船税Id", required = true, dataType = "int")
     @RequestMapping
@@ -55,7 +78,7 @@ public class VehicleAndVesselTaxController {
         }
     }*/
 
-    @ApiOperation(value = "分页查询", tags = "需要两个参数")
+    @ApiOperation(value = "分页查询", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
@@ -66,6 +89,21 @@ public class VehicleAndVesselTaxController {
         Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntityList = iVehicleAndVesselTaxService.findAll(pageable);
         if (null != vehicleAndVesselTaxEntityList) {
             return new ResponseBean(200, "成功", vehicleAndVesselTaxEntityList);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "车船税动态查询", notes = "需要四个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
+    })
+    @RequestMapping(value = "/findVesselTaxEntitiesDynamic", method = RequestMethod.GET)
+    public ResponseBean findVesselTaxEntitiesDynamic(DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize) {
+        Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntities = iVehicleAndVesselTaxService.findVesselTaxEntitiesDynamic(displacementEntity,pageNumber, pageSize);
+        if (null != vehicleAndVesselTaxEntities) {
+            return new ResponseBean(200, "成功", vehicleAndVesselTaxEntities);
         } else {
             throw new UnauthorizedException();
         }

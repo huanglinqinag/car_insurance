@@ -38,10 +38,12 @@ public interface ITypesOfInsuranceService {
     /**
      * 动态查询
      *
-     * @param typesOfInsuranceId
      * @param insuranceName
-     * @param pageable
+     * @param pageSize
+     * @param pageNumber
      * @return Page<TypesOfInsuranceEntity>
      */
-    Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntities(int typesOfInsuranceId, String insuranceName, Pageable pageable);
+
+    Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName, Integer pageSize, Integer pageNumber);
 }
+

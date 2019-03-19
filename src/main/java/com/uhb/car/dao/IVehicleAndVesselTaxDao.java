@@ -4,6 +4,7 @@ import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -15,7 +16,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 
 
-public interface IVehicleAndVesselTaxDao extends JpaRepository<VehicleAndVesselTaxEntity, Integer>, CrudRepository<VehicleAndVesselTaxEntity, Integer>, PagingAndSortingRepository<VehicleAndVesselTaxEntity, Integer> {
+public interface IVehicleAndVesselTaxDao extends JpaRepository<VehicleAndVesselTaxEntity, Integer>, CrudRepository<VehicleAndVesselTaxEntity, Integer>, PagingAndSortingRepository<VehicleAndVesselTaxEntity, Integer>, JpaSpecificationExecutor<VehicleAndVesselTaxEntity> {
     /**
      * 新增一条车船税
      *
@@ -26,7 +27,7 @@ public interface IVehicleAndVesselTaxDao extends JpaRepository<VehicleAndVesselT
     @Override
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
-  /*  *//**
+    /*  *//**
      * 根据车船随id删除
      *
      * @param vehicleAndVesselTaxId

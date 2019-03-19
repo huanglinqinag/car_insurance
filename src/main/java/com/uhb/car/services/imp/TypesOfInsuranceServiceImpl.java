@@ -5,6 +5,7 @@ import com.uhb.car.entity.TypesOfInsuranceEntity;
 import com.uhb.car.services.ITypesOfInsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -42,15 +43,14 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
         return iTypesOfInsuranceDao.findAll(pageable);
     }
 
+
     @Override
-    public Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntities(int typesOfInsuranceId, String insuranceName, Pageable pageable) {
+    public Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName,Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iTypesOfInsuranceDao.findAll(new Specification<TypesOfInsuranceEntity>() {
             @Override
             public Predicate toPredicate(Root<TypesOfInsuranceEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
-                if (0 != typesOfInsuranceId) {
-                    predicateList.add(criteriaBuilder.equal(root.get("typesOfInsuranceId"), typesOfInsuranceId));
-                }
                 if (null != insuranceName) {
                     predicateList.add(criteriaBuilder.like(root.get("insuranceName"), "%" + insuranceName + "%"));
                 }

@@ -24,9 +24,28 @@ public class VehicleTypeController {
     @Autowired
     private VehicleTypeServiceImpl vehicleTypeServiceImpl;
 
-    @ApiOperation(value = "添加车辆类型", notes = "不需要参数")
+    @ApiOperation(value = "添加车辆类型", notes = "需要两个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vehicleTypeId", value = "车辆类型Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "typeName", value = "车辆类型名称", required = true, dataType = "String"),
+    })
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public ResponseBean save(VehicleTypeEntity vehicleTypeEntity) {
+        VehicleTypeEntity typeEntity = vehicleTypeServiceImpl.save(vehicleTypeEntity);
+        if (typeEntity != null) {
+            return new ResponseBean(200, "成功", typeEntity);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "修改车辆类型", notes = "需要两个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vehicleTypeId", value = "车辆类型Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "typeName", value = "车辆类型名称", required = true, dataType = "String"),
+    })
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    public ResponseBean modify(VehicleTypeEntity vehicleTypeEntity) {
         VehicleTypeEntity typeEntity = vehicleTypeServiceImpl.save(vehicleTypeEntity);
         if (typeEntity != null) {
             return new ResponseBean(200, "成功", typeEntity);
@@ -65,17 +84,13 @@ public class VehicleTypeController {
 
     @ApiOperation(value = "动态查询", notes = "需要两个参数")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vehicleTypeId", value = "车辆类型Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "typeName", value = "类型名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "显示条数", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/findAllDynamic", method = RequestMethod.GET)
-    public ResponseBean findAll(Pageable pageable, int pageSize, int pageNumber, int vehicleTypeId, String typeName) {
-        pageable = new PageRequest(pageSize, pageNumber);
-        System.out.println("vehicleTypeId" + vehicleTypeId);
-        System.out.println("typeName" + typeName);
-        Page<VehicleTypeEntity> vehicleTypeEntityList = vehicleTypeServiceImpl.findAll(vehicleTypeId, typeName, pageable);
+    @RequestMapping(value = "/findAllVehicleTypeEntityDynamic", method = RequestMethod.GET)
+    public ResponseBean findAllVehicleTypeEntityDynamic(Integer pageSize, Integer pageNumber, String typeName) {
+        Page<VehicleTypeEntity> vehicleTypeEntityList = vehicleTypeServiceImpl.findAllVehicleTypeEntityDynamic(typeName, pageSize, pageNumber);
         if (vehicleTypeEntityList != null) {
             return new ResponseBean(200, "成功", vehicleTypeEntityList);
         } else {

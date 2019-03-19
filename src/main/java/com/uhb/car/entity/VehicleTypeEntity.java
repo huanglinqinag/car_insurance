@@ -37,8 +37,12 @@ public class VehicleTypeEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         VehicleTypeEntity that = (VehicleTypeEntity) o;
         return vehicleTypeId == that.vehicleTypeId &&
                 Objects.equals(typeName, that.typeName);

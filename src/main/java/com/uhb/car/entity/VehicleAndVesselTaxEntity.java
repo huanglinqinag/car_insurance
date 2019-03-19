@@ -15,6 +15,9 @@ public class VehicleAndVesselTaxEntity {
     private int vehicleAndVesselTaxId;
     private int displacementId;
     private int price;
+    @ManyToOne
+    @JoinColumn(name = "displacement_id")
+    private DisplacementEntity displacementEntity;
 
     @Id
     @Column(name = "vehicle_and_vessel_tax_id")
@@ -48,8 +51,12 @@ public class VehicleAndVesselTaxEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         VehicleAndVesselTaxEntity that = (VehicleAndVesselTaxEntity) o;
         return vehicleAndVesselTaxId == that.vehicleAndVesselTaxId &&
                 displacementId == that.displacementId &&

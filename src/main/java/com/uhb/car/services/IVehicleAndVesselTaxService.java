@@ -1,5 +1,6 @@
 package com.uhb.car.services;
 
+import com.uhb.car.entity.DisplacementEntity;
 import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public interface IVehicleAndVesselTaxService {
 
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
-  /*  *//**
+    /*  *//**
      * 根据车船随id删除
      *
      * @param vehicleAndVesselTaxId
@@ -42,4 +43,14 @@ public interface IVehicleAndVesselTaxService {
 
 
     Page<VehicleAndVesselTaxEntity> findAll(Pageable pageable);
+
+    /**
+     * 分页查询
+     *
+     * @param
+     * @param pageNumber
+     * @param pageSize
+     * @return Page<VehicleAndVesselTaxEntity>
+     */
+    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic( DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize);
 }

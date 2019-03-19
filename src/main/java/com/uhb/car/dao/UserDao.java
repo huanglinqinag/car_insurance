@@ -15,9 +15,19 @@ import java.util.List;
  * @Version 1.0
  */
 @Repository
-public interface UserDao extends JpaRepository<Users,Long> {
-      public Users findByName(String name);
+public interface UserDao extends JpaRepository<Users, Long> {
+    /**
+     *
+     * @param name
+     * @return
+     */
+    Users findByName(String name);
 
-      public List<Users> findAll();
+    /**
+     *
+     * @return
+     */
+    @Override
+    List<Users> findAll();
 
 }

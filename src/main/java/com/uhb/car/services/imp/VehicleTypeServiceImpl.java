@@ -33,15 +33,13 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
         return iVehicleTypeDao.findAllByTypeNameContaining(typeName);
     }
 
-    public Page<VehicleTypeEntity> findAll(int vehicleTypeId, String typeName, Pageable pageable) {
+    @Override
+    public Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleTypeDao.findAll(new Specification<VehicleTypeEntity>() {
             @Override
             public Predicate toPredicate(Root<VehicleTypeEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
-                System.out.println("vehicleTypeIdimp" + vehicleTypeId);
-                if (0 != vehicleTypeId) {
-                    predicateList.add(criteriaBuilder.equal(root.get("vehicleTypeId"), vehicleTypeId));
-                }
                 if (null != typeName && !typeName.equals("")) {
                     predicateList.add(criteriaBuilder.like(root.get("typeName"), "%" + typeName + "%"));
                 }
