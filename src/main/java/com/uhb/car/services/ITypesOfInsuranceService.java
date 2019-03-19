@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @interfaceName:ITypesOfInsuranceService
+ * @interfaceName:商业险CUDRService
  * @Author: LJW
  * @Date: 2019/3/17 14:53
  * @Version 1.0

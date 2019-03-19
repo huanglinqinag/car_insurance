@@ -59,7 +59,7 @@ public class ShiroConfig {
          */
         Map<String, String> filterRuleMap = new HashMap<>();
         /*filterRuleMap.put("/401", "anon");
-        filterRuleMap.put("/Test", "anon");
+        /*filterRuleMap.put("/Test", "anon");
         filterRuleMap.put("/gologin", "anon");
         filterRuleMap.put("/tolist", "anon");
         filterRuleMap.put("/hello/*", "anon");
