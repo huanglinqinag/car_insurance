@@ -71,6 +71,7 @@ public class VehicleAndVesselTaxController {
     public ResponseBean findAllVehicleAndVesselTaxPaging(int pageSize, int pageNumber, Pageable pageable) {
         pageable = new PageRequest(pageSize, pageNumber);
         Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntityList = iVehicleAndVesselTaxService.findAll(pageable);
+
         if (null != vehicleAndVesselTaxEntityList) {
             return new ResponseBean(200, "成功", vehicleAndVesselTaxEntityList);
         } else {

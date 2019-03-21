@@ -24,11 +24,11 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = Exception.class)//处理所有异常
-    @ResponseBody //在返回自定义相应类的情况下必须有，这是@ControllerAdvice注解的规定
+   // @ExceptionHandler(value = Exception.class)//处理所有异常
+    /*@ResponseBody //在返回自定义相应类的情况下必须有，这是@ControllerAdvice注解的规定
     public ResponseBean Exception(){
         return new ResponseBean(500,"异常","123");
-    }
+    }*/
     @ExceptionHandler(value = AuthorizationException.class)//处理所有异常
     @ResponseBody //在返回自定义相应类的情况下必须有，这是@ControllerAdvice注解的规定
     public ResponseBean AuthorizationException(){

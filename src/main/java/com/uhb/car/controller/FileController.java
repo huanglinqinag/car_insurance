@@ -28,7 +28,7 @@ public class FileController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/uploadImg")
+    @RequestMapping(value="/uploadImg",method = RequestMethod.GET)
     public ResponseBean uploadImg(HttpServletRequest request) {
 
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("image");

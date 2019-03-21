@@ -14,12 +14,12 @@ import java.util.Objects;
 @Table(name = "displacement", schema = "vehicle", catalog = "")
 public class DisplacementEntity {
     private int displacementId;
-    private int displacementSize;
-    @OneToMany(mappedBy = "displacement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private String displacementSize;
+    //@OneToMany(mappedBy = "displacement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //级联保存、更新、删除、刷新;延迟加载。当删除用户，会级联删除该用户的所有文章
     //拥有mappedBy注解的实体类为关系被维护端
     //mappedBy="author"中的author是Article中的author属性
-    private List<VehicleAndVesselTaxEntity> articleList;//文章列表
+    //private List<VehicleAndVesselTaxEntity> articleList;//文章列表
 
     @Id
     @Column(name = "displacement_id")
@@ -33,11 +33,11 @@ public class DisplacementEntity {
 
     @Basic
     @Column(name = "displacement_size")
-    public int getDisplacementSize() {
+    public String getDisplacementSize() {
         return displacementSize;
     }
 
-    public void setDisplacementSize(int displacementSize) {
+    public void setDisplacementSize(String displacementSize) {
         this.displacementSize = displacementSize;
     }
 

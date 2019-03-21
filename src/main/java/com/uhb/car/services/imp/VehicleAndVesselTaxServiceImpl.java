@@ -48,9 +48,6 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
             @Override
             public Predicate toPredicate(Root<VehicleAndVesselTaxEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
-                if (0 != displacementEntity.getDisplacementSize()) {
-
-                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }
