@@ -1,24 +1,34 @@
 package com.uhb.car.util.aspect;
 
+<<<<<<< HEAD
 
 import com.uhb.car.entity.SysLog;
 import com.uhb.car.services.LoggerAopServices;
 import com.uhb.car.util.interfaceLog.Log;
+=======
+>>>>>>> origin/master
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+import org.springframework.context.annotation.ComponentScan;
+>>>>>>> origin/master
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+=======
+>>>>>>> origin/master
 
 /**
  * @ClassName:切面类
@@ -26,6 +36,7 @@ import java.util.Date;
  * @Date: 2019/3/21 18:41
  * @Version 1.0
  */
+<<<<<<< HEAD
 
 @Aspect
 @Component
@@ -34,6 +45,13 @@ public class HttpAspect {
     @Autowired
     LoggerAopServices loggerAopServices;
 
+=======
+@Aspect
+@Component
+public class HttpAspect {
+
+    private final static Logger logger= LoggerFactory.getLogger(HttpAspect.class);
+>>>>>>> origin/master
     /**
      * @ClassName:
      * @Author: hlq
@@ -45,6 +63,7 @@ public class HttpAspect {
      * 第三个*代表类所有方法
      * 最后一个..代表所有的参数。
      */
+<<<<<<< HEAD
 
     @Pointcut("execution(* com.uhb.car.controller.*.delete*(..))")
     public void pointcut() {
@@ -105,3 +124,21 @@ public class HttpAspect {
     }
 }
 
+=======
+    @Pointcut("execution(* com.uhb.car.controller..*.*(..))")
+     public void pointcut(){}
+
+     @Before("pointcut()")
+    public void before(JoinPoint joinPoint){
+         ServletRequestAttributes attributes= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+         HttpServletRequest request = attributes.getRequest();
+         //获取请求的url
+         logger.info("url:{}",request.getRequestURI());
+         //获取请求的方法
+         logger.info("method:{}",request.getMethod());
+         //获取请求的ip
+         logger.info("ip:{}",request.getRemoteAddr());
+
+     }
+}
+>>>>>>> origin/master
