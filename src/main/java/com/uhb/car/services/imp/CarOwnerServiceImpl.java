@@ -5,6 +5,7 @@ import com.uhb.car.entity.CarOwnerEntity;
 import com.uhb.car.services.ICarOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,41 +20,24 @@ public class CarOwnerServiceImpl implements ICarOwnerService {
     @Autowired
     ICarOwnerDao iCarOwnerDao;
 
-    /**
-     * 添加车主信息
-     *
-     * @param carOwner
-     * @return CarOwnerEntity
-     */
     @Override
-    public CarOwnerEntity save(CarOwnerEntity carOwner) {
-        return iCarOwnerDao.save(carOwner);
+    public CarOwnerEntity saveByCarOwnerEntity(CarOwnerEntity carOwnerEntity) {
+        return iCarOwnerDao.save(carOwnerEntity);
     }
 
-    /**
-     * 根据车主Id进行删除
-     *
-     * @param carOwnerId
-     * @return
-     */
     @Override
-    public void deleteById(Integer carOwnerId) {
+    public void deleteByCarOwnerId(Integer carOwnerId) {
         iCarOwnerDao.deleteById(carOwnerId);
     }
 
     @Override
-    public CarOwnerEntity update(CarOwnerEntity carOwner) {
-        return iCarOwnerDao.save(carOwner);
+    public CarOwnerEntity updateByCarOwnerEntity(CarOwnerEntity carOwnerEntity) {
+        return iCarOwnerDao.save(carOwnerEntity);
     }
 
-    /**
-     * 分页查询车主信息
-     *
-     * @param pageable
-     * @return
-     */
     @Override
-    public Page<CarOwnerEntity> findAll(Pageable pageable) {
+    public Page<CarOwnerEntity> findAllByCarOwnerEntitiesPaging(Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iCarOwnerDao.findAll(pageable);
     }
 }

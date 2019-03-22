@@ -30,23 +30,28 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
 
 
     @Override
-    public VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
-        return iVehicleAndVesselTaxDao.save(vehicleAndVesselTaxEntity);
+    public VehicleAndVesselTaxEntity saveByVehicleAndVesselTaxEntity(VehicleAndVesselTaxEntity vehicleAndVesselTax) {
+        return iVehicleAndVesselTaxDao.save(vehicleAndVesselTax);
     }
 
     @Override
-    public void deleteById(Integer vehicleVesselTaxId) {
+    public void deleteByVehicleVesselTaxId(Integer vehicleVesselTaxId) {
         iVehicleAndVesselTaxDao.deleteById(vehicleVesselTaxId);
     }
 
     @Override
-    public VehicleAndVesselTaxEntity update(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
-        return iVehicleAndVesselTaxDao.save(vehicleAndVesselTaxEntity);
+    public VehicleAndVesselTaxEntity updateByVehicleAndVesselTaxEntity(VehicleAndVesselTaxEntity vehicleAndVesselTax) {
+        return iVehicleAndVesselTaxDao.save(vehicleAndVesselTax);
     }
 
+    @Override
+    public Page<VehicleAndVesselTaxEntity> findAllByVehicleAndVesselTaxEntityPaging(Integer pageSize, Integer PageNumber) {
+        Pageable pageable = new PageRequest(pageSize, PageNumber);
+        return iVehicleAndVesselTaxDao.findAll(pageable);
+    }
 
     @Override
-    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(Integer displacementId, Integer pageNumber, Integer pageSize) {
+    public Page<VehicleAndVesselTaxEntity> findAllByVehicleAndVesselTaxEntityDynamic(Integer displacementId, Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleAndVesselTaxDao.findAll(new Specification<VehicleAndVesselTaxEntity>() {
             @Override
@@ -59,11 +64,5 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }
         }, pageable);
-
-    }
-
-    @Override
-    public Page<VehicleAndVesselTaxEntity> findAll(Pageable pageable) {
-        return iVehicleAndVesselTaxDao.findAll(pageable);
     }
 }

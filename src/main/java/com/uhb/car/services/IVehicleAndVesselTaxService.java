@@ -15,47 +15,44 @@ import org.springframework.data.domain.Pageable;
 
 public interface IVehicleAndVesselTaxService {
     /**
-     * 新增一条车船税
+     * 添加一条车船税信息
      *
-     * @param vehicleAndVesselTaxEntity
+     * @param vehicleAndVesselTax
      * @return VehicleAndVesselTaxEntity
      */
-
-
-    VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
+    VehicleAndVesselTaxEntity saveByVehicleAndVesselTaxEntity(VehicleAndVesselTaxEntity vehicleAndVesselTax);
 
     /**
-     * 根据车船税Id删除
+     * 根据车船税Id进行删除
      *
      * @param vehicleVesselTaxId
      */
-    void deleteById(Integer vehicleVesselTaxId);
+    void deleteByVehicleVesselTaxId(Integer vehicleVesselTaxId);
 
     /**
-     * 修改一条车船税数据
+     * 修改车船税信息
      *
-     * @param vehicleAndVesselTaxEntity
+     * @param vehicleAndVesselTax
      * @return VehicleAndVesselTaxEntity
      */
-    VehicleAndVesselTaxEntity update(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
+    VehicleAndVesselTaxEntity updateByVehicleAndVesselTaxEntity(VehicleAndVesselTaxEntity vehicleAndVesselTax);
 
     /**
-     * 分页查询所有车船税
+     * 分页查询车船税信息
      *
-     * @param pageable
-     * @return Page<VehicleAndVesselTaxEntity>
-     */
-
-
-    Page<VehicleAndVesselTaxEntity> findAll(Pageable pageable);
-
-    /**
-     * 动态分页查询
-     *
-     * @param
-     * @param pageNumber
      * @param pageSize
+     * @param PageNumber
      * @return Page<VehicleAndVesselTaxEntity>
      */
-    Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(Integer displacementId, Integer pageNumber, Integer pageSize);
+    Page<VehicleAndVesselTaxEntity> findAllByVehicleAndVesselTaxEntityPaging(Integer pageSize, Integer PageNumber);
+
+    /**
+     * 动态分页查询车船税信息
+     *
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<VehicleAndVesselTaxEntity>
+     */
+    Page<VehicleAndVesselTaxEntity> findAllByVehicleAndVesselTaxEntityDynamic(Integer displacementId, Integer pageSize, Integer pageNumber);
+
 }

@@ -16,29 +16,29 @@ public interface IIdTypeService {
      * @param idType
      * @return IdTypeEntity
      */
-    IdTypeEntity saveByIdType(IdTypeEntity idType);
+    IdTypeEntity saveByIdTypeEntity(IdTypeEntity idType);
 
     /**
-     * 根据证件Id删除
+     * 根据Id删除一条证件信息
      *
      * @param idTypeId
      */
-    void deleteId(Integer idTypeId);
+    void deleteByIdTypeEntity(Integer idTypeId);
 
     /**
-     * 修改证件信息
+     * 修改一条证件信息
      *
      * @param idType
      * @return IdTypeEntity
      */
-    IdTypeEntity updateByIdType(IdTypeEntity idType);
+    IdTypeEntity updateByIdTypeEntity(IdTypeEntity idType);
 
     /**
-     * 分页查询
+     * 分页查询证件信息
      *
      * @param pageSize
      * @param pageNumber
-     * @return Page<IdTypeEntity>
+     * @return
      */
-    Page<IdTypeEntity> findAllByIdType(Integer pageSize, Integer pageNumber);
+    Page<IdTypeEntity> findAllByIdTypeEntity(Integer pageSize, Integer pageNumber);
 }

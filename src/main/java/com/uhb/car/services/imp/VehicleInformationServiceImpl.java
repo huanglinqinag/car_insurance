@@ -28,34 +28,55 @@ public class VehicleInformationServiceImpl implements IVehicleInformationService
     @Autowired
     IVehicleInformationDao iVehicleInformationDao;
 
-
     @Override
-    public VehicleInformationEntity saveVehicleInformation(VehicleInformationEntity vehicleInformation) {
+    public VehicleInformationEntity saveVehicleInformationEntity(VehicleInformationEntity vehicleInformation) {
         return iVehicleInformationDao.save(vehicleInformation);
     }
 
     @Override
     public void deleteByVehicleId(Integer vehicleId) {
-        iVehicleInformationDao.deleteId(vehicleId);
+        iVehicleInformationDao.deleteById(vehicleId);
     }
 
     @Override
-    public VehicleInformationEntity updateVehicleInformation(VehicleInformationEntity vehicleInformation) {
+    public VehicleInformationEntity updateVehicleInformationEntity(VehicleInformationEntity vehicleInformation) {
         return iVehicleInformationDao.save(vehicleInformation);
     }
 
     @Override
-    public Page<VehicleInformationEntity> findAllByVehicleInformation(Pageable pageable) {
+    public Page<VehicleInformationEntity> findAllByVehicleInformationEntityPaging(Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleInformationDao.findAll(pageable);
     }
 
     @Override
-    public Page<VehicleInformationEntity> findAllByVehicleInformationDynamic(Integer pageSize, Integer pageNumber) {
+    public Page<VehicleInformationEntity> findAllByVehicleInformationEntityDynamic(VehicleInformationEntity vehicleInformation, Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleInformationDao.findAll(new Specification<VehicleInformationEntity>() {
             @Override
             public Predicate toPredicate(Root<VehicleInformationEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
+                if (null != vehicleInformation.getLicensePlateNumber()) {
+                    predicateList.add(criteriaBuilder.like(root.get("licensePlateNumber"), "%" + vehicleInformation.getLicensePlateNumber() + "%"));
+                }
+                if (null != vehicleInformation.getVin()) {
+                    predicateList.add(criteriaBuilder.like(root.get("vin"), "%" + vehicleInformation.getVin() + "%"));
+                }
+                if (null != vehicleInformation.getEngineNumber()) {
+                    predicateList.add(criteriaBuilder.like(root.get("engineNumber"), "%" + vehicleInformation.getEngineNumber() + "%"));
+                }
+                if (0 != vehicleInformation.getVehicleId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("vehicleTypeId"), vehicleInformation.getVehicleId()));
+                }
+                if (0 != vehicleInformation.getNatureOfVehicleUseId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("natureOfVehicleUseId"), vehicleInformation.getNatureOfVehicleUseId()));
+                }
+                if (0 != vehicleInformation.getEnergyTypeId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("energyTypeId"), vehicleInformation.getEnergyTypeId()));
+                }
+                if (0 != vehicleInformation.getDisplacementId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("displacementId"), vehicleInformation.getDisplacementId()));
+                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }

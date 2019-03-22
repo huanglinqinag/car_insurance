@@ -14,55 +14,36 @@ import java.util.List;
  */
 public interface ITypesOfInsuranceService {
     /**
-     * 添加一条商业险
+     * 添加一条商业险数据
      *
-     * @param types
-     * @return TypesOfInsuranceEntity
+     * @param typesOfInsurance
+     * @return
      */
-    TypesOfInsuranceEntity save(TypesOfInsuranceEntity types);
+    TypesOfInsuranceEntity saveByTypesOfInsuranceEntity(TypesOfInsuranceEntity typesOfInsurance);
 
     /**
-     * 根据商业险Id删除
+     * 根据商业险Id进行删除
      *
      * @param typesOfInsuranceId
-     * @return int
      */
-    void deleteById(int typesOfInsuranceId);
+    void deleteByTypesOfInsuranceId(Integer typesOfInsuranceId);
 
     /**
-     * 修改商业险信息
+     * 修改一条商业险数据
      *
-     * @param types
+     * @param typesOfInsurance
      * @return TypesOfInsuranceEntity
      */
-    TypesOfInsuranceEntity update(TypesOfInsuranceEntity types);
+    TypesOfInsuranceEntity updateByTypesOfInsuranceEntity(TypesOfInsuranceEntity typesOfInsurance);
 
     /**
-     * 根据商业险名称进行模糊查询
+     * 分页查询商业险信息
      *
-     * @param insuranceName
-     * @return List<TypesOfInsuranceEntity>
-     */
-    List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName);
-
-
-    /**
-     * 分页查询商业险
-     *
-     * @param pageable
-     * @return Page<TypesOfInsuranceEntity>
-     */
-    Page<TypesOfInsuranceEntity> findAll(Pageable pageable);
-
-    /**
-     * 动态查询
-     *
-     * @param insuranceName
      * @param pageSize
      * @param pageNumber
      * @return Page<TypesOfInsuranceEntity>
      */
+    Page<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityPaging(Integer pageSize, Integer pageNumber);
 
-    Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName, Integer pageSize, Integer pageNumber);
 }
 

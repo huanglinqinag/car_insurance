@@ -21,22 +21,22 @@ public class IdTypeServiceImpl implements IIdTypeService {
     IIdTypeDao iIdTypeDao;
 
     @Override
-    public IdTypeEntity saveByIdType(IdTypeEntity idType) {
+    public IdTypeEntity saveByIdTypeEntity(IdTypeEntity idType) {
         return iIdTypeDao.save(idType);
     }
 
     @Override
-    public void deleteId(Integer idTypeId) {
-        iIdTypeDao.deleteId(idTypeId);
+    public void deleteByIdTypeEntity(Integer idTypeId) {
+        iIdTypeDao.deleteById(idTypeId);
     }
 
     @Override
-    public IdTypeEntity updateByIdType(IdTypeEntity idType) {
+    public IdTypeEntity updateByIdTypeEntity(IdTypeEntity idType) {
         return iIdTypeDao.save(idType);
     }
 
     @Override
-    public Page<IdTypeEntity> findAllByIdType(Integer pageSize, Integer pageNumber) {
+    public Page<IdTypeEntity> findAllByIdTypeEntity(Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iIdTypeDao.findAll(pageable);
     }

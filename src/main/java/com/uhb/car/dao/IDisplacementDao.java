@@ -15,30 +15,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Version 1.0
  */
 public interface IDisplacementDao extends JpaRepository<DisplacementEntity, Integer>, CrudRepository<DisplacementEntity, Integer>, PagingAndSortingRepository<DisplacementEntity, Integer>, JpaSpecificationExecutor<DisplacementEntity> {
-    /**
-     * 新增一条汽车排量信息
-     *
-     * @param displacement
-     * @return DisplacementEntity
-     */
-    @Override
-    DisplacementEntity save(DisplacementEntity displacement);
-
-    /**
-     * 根据车俩排练Id进行删除
-     *
-     * @param displacementId
-     * @return int
-     */
-    int deleteAllByDisplacementId(Integer displacementId);
-
-    /**
-     * 分页查询所有排量信息
-     *
-     * @param pageable
-     * @return Page<DisplacementEntity>
-     */
-    @Override
-    Page<DisplacementEntity> findAll(Pageable pageable);
-
 }

@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "证件信息")
 @RestController
-@RequestMapping(value = "IdType")
+@RequestMapping(value = "/IdType")
 public class IdTypeController {
     @Autowired
     IIdTypeService iIdTypeService;
 
-    @ApiOperation(value = "添加证件信息", notes = "")
+    @ApiOperation(value = "添加证件信息", notes = "需要三个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "idTypeId", value = "证件Id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "idTypeName", value = "证件类型", required = true, dataType = "String"),
@@ -34,7 +34,7 @@ public class IdTypeController {
     })
     @RequestMapping(value = "/saveByIdType", method = RequestMethod.GET)
     public ResponseBean saveByIdType(IdTypeEntity idType) {
-        IdTypeEntity idTypeEntity = iIdTypeService.saveByIdType(idType);
+        IdTypeEntity idTypeEntity = iIdTypeService.saveByIdTypeEntity(idType);
         if (null != idTypeEntity) {
             return new ResponseBean(200, "成功", idTypeEntity);
         } else {

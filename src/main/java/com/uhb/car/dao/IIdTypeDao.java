@@ -14,29 +14,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Version 1.0
  */
 public interface IIdTypeDao extends JpaRepository<IdTypeEntity, Integer>, CrudRepository<IdTypeEntity, Integer>, PagingAndSortingRepository<IdTypeEntity, Integer>, JpaSpecificationExecutor<IdTypeEntity> {
-    /**
-     * 添加一条证件信息
-     *
-     * @param idType
-     * @return IdTypeEntity
-     */
-    @Override
-    IdTypeEntity save(IdTypeEntity idType);
-
-    /**
-     * 根据证件Id删除
-     *
-     * @param idTypeId
-     */
-    void deleteId(Integer idTypeId);
-
-    /**
-     * 分页查询
-     *
-     * @param pageSize
-     * @param pageNumber
-     * @return Page<IdTypeEntity>
-     */
-    Page<IdTypeEntity> findAll(Integer pageSize, Integer pageNumber);
-
 }

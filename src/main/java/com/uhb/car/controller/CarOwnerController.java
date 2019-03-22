@@ -39,9 +39,9 @@ public class CarOwnerController {
             @ApiImplicitParam(name = "relation", value = "电话号码被保人与车辆关系", required = true, dataType = "String"),
             @ApiImplicitParam(name = "picture", value = "证件照照片", required = true, dataType = "String"),
     })
-    @RequestMapping(value = "/saveCarOwner", method = RequestMethod.GET)
-    public ResponseBean saveCarOwner(CarOwnerEntity carOwner) {
-        CarOwnerEntity carOwnerEntity = iCarOwnerService.save(carOwner);
+    @RequestMapping(value = "/saveByCarOwnerEntity", method = RequestMethod.GET)
+    public ResponseBean saveByCarOwnerEntity(CarOwnerEntity carOwner) {
+        CarOwnerEntity carOwnerEntity = iCarOwnerService.saveByCarOwnerEntity(carOwner);
         if (null != carOwnerEntity) {
             return new ResponseBean(200, "成功", carOwnerEntity);
         } else {
@@ -51,10 +51,10 @@ public class CarOwnerController {
 
     @ApiOperation(value = "根据车主信息Id进行删除", notes = "需要车主信息Id")
     @ApiImplicitParam(name = "carOwnerId", value = "车主信息Id", required = true, dataType = "Integer")
-    @RequestMapping(value = "/deleteAllByDisplacementId", method = RequestMethod.GET)
-    public ResponseBean deleteAllByDisplacementId(Integer carOwnerId) {
+    @RequestMapping(value = "/deleteByCarOwnerId", method = RequestMethod.GET)
+    public ResponseBean deleteByCarOwnerId(Integer carOwnerId) {
         try {
-            iCarOwnerService.deleteById(carOwnerId);
+            iCarOwnerService.deleteByCarOwnerId(carOwnerId);
             return new ResponseBean(200, "成功", carOwnerId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class CarOwnerController {
         }
     }
 
-    @ApiOperation(value = "新增车主信息", notes = "需要7个参数")
+    @ApiOperation(value = "修改车主信息", notes = "需要7个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "carOwnerId", value = "车主信息Id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "theOwnerName", value = "车主名称", required = true, dataType = "String"),
@@ -72,9 +72,9 @@ public class CarOwnerController {
             @ApiImplicitParam(name = "relation", value = "电话号码被保人与车辆关系", required = true, dataType = "String"),
             @ApiImplicitParam(name = "picture", value = "证件照照片", required = true, dataType = "String"),
     })
-    @RequestMapping(value = "/saveCarOwner", method = RequestMethod.GET)
-    public ResponseBean updateCarOwner(CarOwnerEntity carOwner) {
-        CarOwnerEntity carOwnerEntity = iCarOwnerService.update(carOwner);
+    @RequestMapping(value = "/updateByCarOwnerEntity", method = RequestMethod.GET)
+    public ResponseBean updateByCarOwnerEntity(CarOwnerEntity carOwner) {
+        CarOwnerEntity carOwnerEntity = iCarOwnerService.updateByCarOwnerEntity(carOwner);
         if (null != carOwnerEntity) {
             return new ResponseBean(200, "成功", carOwnerEntity);
         } else {
@@ -87,10 +87,9 @@ public class CarOwnerController {
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize", value = "分页的页数", required = true, dataType = "Integer"),
     })
-    @RequestMapping(value = "/findAllCarOwnerEntity", method = RequestMethod.GET)
-    public ResponseBean findAllCarOwnerEntity(Integer pageNumber, Integer pageSize, Pageable pageable) {
-        pageable = new PageRequest(pageSize, pageNumber);
-        Page<CarOwnerEntity> carOwnerEntities = iCarOwnerService.findAll(pageable);
+    @RequestMapping(value = "/findAllByCarOwnerEntitiesPaging", method = RequestMethod.GET)
+    public ResponseBean findAllByCarOwnerEntitiesPaging(Integer pageNumber, Integer pageSize) {
+        Page<CarOwnerEntity> carOwnerEntities = iCarOwnerService.findAllByCarOwnerEntitiesPaging(pageSize, pageNumber);
         if (null != carOwnerEntities) {
             return new ResponseBean(200, "成功", carOwnerEntities);
         } else {

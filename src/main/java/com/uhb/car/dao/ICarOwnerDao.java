@@ -15,30 +15,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Version 1.0
  */
 public interface ICarOwnerDao extends JpaRepository<CarOwnerEntity, Integer>, CrudRepository<CarOwnerEntity, Integer>, PagingAndSortingRepository<CarOwnerEntity, Integer>, JpaSpecificationExecutor<CarOwnerEntity> {
-    /**
-     * 添加车主信息
-     *
-     * @param carOwner
-     * @return CarOwnerEntity
-     */
-    @Override
-    CarOwnerEntity save(CarOwnerEntity carOwner);
-
-    /**
-     * 根据车主信息Id进行删除
-     *
-     * @param carOwnerId
-     * @return int
-     */
-    @Override
-    void deleteById(Integer carOwnerId);
-
-    /**
-     * 分页查询车主信息
-     *
-     * @param pageable
-     * @return
-     */
-    @Override
-    Page<CarOwnerEntity> findAll(Pageable pageable);
 }

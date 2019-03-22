@@ -2,7 +2,6 @@ package com.uhb.car.services;
 
 import com.uhb.car.entity.CarOwnerEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @Dome interface:对车主信息进行CRUD Service
@@ -12,34 +11,34 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ICarOwnerService {
     /**
-     * 添加车主信息
+     * 添加一条车主信息
      *
-     * @param carOwner
+     * @param carOwnerEntity
      * @return CarOwnerEntity
      */
-    CarOwnerEntity save(CarOwnerEntity carOwner);
+    CarOwnerEntity saveByCarOwnerEntity(CarOwnerEntity carOwnerEntity);
 
     /**
      * 根据车主信息Id进行删除
      *
      * @param carOwnerId
-     * @return int
      */
-    void deleteById(Integer carOwnerId);
+    void deleteByCarOwnerId(Integer carOwnerId);
 
     /**
      * 修改车主信息
      *
-     * @param carOwner
-     * @return CarOwnerEntity
+     * @param carOwnerEntity
+     * @return
      */
-    CarOwnerEntity update(CarOwnerEntity carOwner);
+    CarOwnerEntity updateByCarOwnerEntity(CarOwnerEntity carOwnerEntity);
 
     /**
-     * 分页查询车主信息
+     * 分页查询所有车主信息
      *
-     * @param pageable
-     * @return Page<CarOwnerEntity>
+     * @param pageSize
+     * @param pageNumber
+     * @return
      */
-    Page<CarOwnerEntity> findAll(Pageable pageable);
+    Page<CarOwnerEntity> findAllByCarOwnerEntitiesPaging(Integer pageSize, Integer pageNumber);
 }

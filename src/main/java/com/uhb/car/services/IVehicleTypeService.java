@@ -2,18 +2,21 @@ package com.uhb.car.services;
 
 import com.uhb.car.entity.VehicleTypeEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
+/**
+ * @Dome interface:IVehicleTypeService
+ * @Author: LJW
+ * @Date: 2019/3/22 08:54
+ * @Version 1.0
+ */
 public interface IVehicleTypeService {
     /**
      * 添加一个车辆类型
      *
-     * @param vehicleTypeEntity
+     * @param vehicleType
      * @return VehicleTypeEntity
      */
-    VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
+    VehicleTypeEntity saveByVehicleTypeEntity(VehicleTypeEntity vehicleType);
 
     /**
      * 根据id删除
@@ -25,27 +28,19 @@ public interface IVehicleTypeService {
     /**
      * 修改一个车辆类型
      *
-     * @param vehicleTypeEntity
+     * @param vehicleType
      * @return VehicleTypeEntity
      */
-    VehicleTypeEntity update(VehicleTypeEntity vehicleTypeEntity);
+    VehicleTypeEntity updateByVehicleTypeEntity(VehicleTypeEntity vehicleType);
 
     /**
-     * 模糊查询
+     * 分页查询车辆类型
      *
-     * @param typeName
-     * @return List<VehicleTypeEntity>
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<vehicleType>
      */
-    List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName);
-
-
-    /**
-     * 分页查询
-     *
-     * @param pageable
-     * @return List<VehicleTypeEntity>
-     */
-    Page<VehicleTypeEntity> findAll(Pageable pageable);
+    Page<VehicleTypeEntity> findAllByVehicleTypeEntitiesPaging(Integer pageSize, Integer pageNumber);
 
     /**
      * 动态查询车辆类型
@@ -55,5 +50,5 @@ public interface IVehicleTypeService {
      * @param pageNumber
      * @return Page<VehicleTypeEntity>
      */
-    Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber);
+    Page<VehicleTypeEntity> findAllByVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber);
 }

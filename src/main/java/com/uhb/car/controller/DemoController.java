@@ -27,8 +27,9 @@ import java.util.List;
 public class DemoController {
     @Autowired
     DemoService demoService;
+
     @RequestMapping(value = "/login")
-    public  String lo(){
+    public String lo() {
         return "tologin";
     }
 
@@ -37,39 +38,41 @@ public class DemoController {
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
     })
-    @RequestMapping(value = "/gologin", method = RequestMethod.GET)
+    @RequestMapping(value = "/gologin", method = RequestMethod.POST)
     @ResponseBody
     public ResponseBean login(String username, String password) {
-        Users users=demoService.findByName(username);
-        if (users.getPassword().equals(password)){
-            return new ResponseBean(200,"login success", JWTUtil.sign(username,password));
-        }else {
+        Users users = demoService.findByName(username);
+        if (users.getPassword().equals(password)) {
+            return new ResponseBean(200, "login success", JWTUtil.sign(username, password));
+        } else {
             throw new UnauthorizedException();
         }
     }
+
     @ApiOperation(value = "查询用户", notes = "不需要参数")
-    @RequestMapping(value = "/tolist" ,method = RequestMethod.GET )
+    @RequestMapping(value = "/tolist", method = RequestMethod.GET)
     @ResponseBody
     @RequiresRoles({"admin"})
     public ResponseBean list() throws AuthenticationException {
-        List<Users> list=demoService.findAll();
+        List<Users> list = demoService.findAll();
         System.out.println(list.size());
 
-       return new ResponseBean(200,"ok",list);
+        return new ResponseBean(200, "ok", list);
         //return new ResponseBean(200,"12",12);
     }
 
     @ApiOperation(value = "异常", notes = "不需要参数")
-    @RequestMapping(value = "/yichang" ,method = RequestMethod.GET )
+    @RequestMapping(value = "/yichang", method = RequestMethod.GET)
     @ResponseBody
     public ResponseBean yichang() throws UnauthorizedException {
         throw new UnauthorizedException("权限不足");
         //return new ResponseBean(200,"12",12);
     }
-    @RequestMapping("/401")
-    public ResponseBean si(){
 
-        return new ResponseBean(401,"没有权限","1232");
+    @RequestMapping("/401")
+    public ResponseBean si() {
+
+        return new ResponseBean(401, "没有权限", "1232");
 
     }
 

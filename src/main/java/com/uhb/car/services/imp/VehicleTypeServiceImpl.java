@@ -25,34 +25,12 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
     /**
      * 添加一条车辆类型数据
      *
-     * @param vehicleTypeEntity
+     * @param vehicleType
      * @return VehicleTypeEntity
      */
     @Override
-    public VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity) {
-        return iVehicleTypeDao.save(vehicleTypeEntity);
-    }
-
-    /**
-     * 根据商业险Id模糊查询
-     *
-     * @param typeName
-     * @return List<VehicleTypeEntity>
-     */
-    @Override
-    public List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName) {
-        return iVehicleTypeDao.findAllByTypeNameContaining(typeName);
-    }
-
-    /**
-     * 分页查询车辆类型
-     *
-     * @param pageable
-     * @return Page<VehicleTypeEntity>
-     */
-    @Override
-    public Page<VehicleTypeEntity> findAll(Pageable pageable) {
-        return iVehicleTypeDao.findAll(pageable);
+    public VehicleTypeEntity saveByVehicleTypeEntity(VehicleTypeEntity vehicleType) {
+        return iVehicleTypeDao.save(vehicleType);
     }
 
     /**
@@ -68,13 +46,27 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
     /**
      * 修改汽车类型
      *
-     * @param vehicleTypeEntity
+     * @param vehicleType
      * @return
      */
     @Override
-    public VehicleTypeEntity update(VehicleTypeEntity vehicleTypeEntity) {
-        return iVehicleTypeDao.save(vehicleTypeEntity);
+    public VehicleTypeEntity updateByVehicleTypeEntity(VehicleTypeEntity vehicleType) {
+        return iVehicleTypeDao.save(vehicleType);
     }
+
+    /**
+     * 分页查询车辆类型
+     *
+     * @param pageSize
+     * @param pageNumber
+     * @return
+     */
+    @Override
+    public Page<VehicleTypeEntity> findAllByVehicleTypeEntitiesPaging(Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
+        return iVehicleTypeDao.findAll(pageable);
+    }
+
 
     /**
      * 动态查询车辆类型
@@ -86,7 +78,7 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
      */
 
     @Override
-    public Page<VehicleTypeEntity> findAllVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber) {
+    public Page<VehicleTypeEntity> findAllByVehicleTypeEntityDynamic(String typeName, Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleTypeDao.findAll(new Specification<VehicleTypeEntity>() {
             @Override

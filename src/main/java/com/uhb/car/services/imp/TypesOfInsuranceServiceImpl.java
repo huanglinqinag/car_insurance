@@ -29,45 +29,23 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
     ITypesOfInsuranceDao iTypesOfInsuranceDao;
 
     @Override
-    public TypesOfInsuranceEntity save(TypesOfInsuranceEntity types) {
-        return iTypesOfInsuranceDao.save(types);
+    public TypesOfInsuranceEntity saveByTypesOfInsuranceEntity(TypesOfInsuranceEntity typesOfInsurance) {
+        return iTypesOfInsuranceDao.save(typesOfInsurance);
     }
 
     @Override
-    public void deleteById(int typesOfInsuranceId) {
+    public void deleteByTypesOfInsuranceId(Integer typesOfInsuranceId) {
         iTypesOfInsuranceDao.deleteById(typesOfInsuranceId);
     }
 
     @Override
-    public TypesOfInsuranceEntity update(TypesOfInsuranceEntity types) {
-        return iTypesOfInsuranceDao.save(types);
+    public TypesOfInsuranceEntity updateByTypesOfInsuranceEntity(TypesOfInsuranceEntity typesOfInsurance) {
+        return iTypesOfInsuranceDao.save(typesOfInsurance);
     }
 
     @Override
-    public List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName) {
-        return iTypesOfInsuranceDao.findAllByInsuranceNameContaining(insuranceName);
-    }
-
-
-    @Override
-    public Page<TypesOfInsuranceEntity> findAll(Pageable pageable) {
-        return iTypesOfInsuranceDao.findAll(pageable);
-    }
-
-
-    @Override
-    public Page<TypesOfInsuranceEntity> findAllTypesOfInsuranceEntitiesDynamic(String insuranceName, Integer pageSize, Integer pageNumber) {
+    public Page<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityPaging(Integer pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
-        return iTypesOfInsuranceDao.findAll(new Specification<TypesOfInsuranceEntity>() {
-            @Override
-            public Predicate toPredicate(Root<TypesOfInsuranceEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicateList = new ArrayList<>();
-                if (null != insuranceName) {
-                    predicateList.add(criteriaBuilder.like(root.get("insuranceName"), "%" + insuranceName + "%"));
-                }
-                Predicate[] predicates = new Predicate[predicateList.size()];
-                return criteriaBuilder.and(predicateList.toArray(predicates));
-            }
-        }, pageable);
+        return iTypesOfInsuranceDao.findAll(pageable);
     }
 }

@@ -5,6 +5,7 @@ import com.uhb.car.entity.DisplacementEntity;
 import com.uhb.car.services.IDisplacementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,35 +20,24 @@ public class DisplacementServiceImpl implements IDisplacementService {
     @Autowired
     IDisplacementDao iDisplacementDao;
 
-    /**
-     * 添加一条汽车排量信息
-     *
-     * @param displacement
-     * @return DisplacementEntity
-     */
     @Override
-    public DisplacementEntity save(DisplacementEntity displacement) {
-        return iDisplacementDao.save(displacement);
-    }
-
-    /**
-     * 根据汽车排量Id进行删除
-     *
-     * @param displacementId
-     * @return int
-     */
-    @Override
-    public int deleteAllByDisplacementId(Integer displacementId) {
-        return iDisplacementDao.deleteAllByDisplacementId(displacementId);
+    public DisplacementEntity saveByDisplacementEntity(DisplacementEntity displacementEntity) {
+        return iDisplacementDao.save(displacementEntity);
     }
 
     @Override
-    public DisplacementEntity update(DisplacementEntity displacement) {
-        return iDisplacementDao.save(displacement);
+    public void deleteByDisplacementId(Integer displacementId) {
+        iDisplacementDao.deleteById(displacementId);
     }
 
     @Override
-    public Page<DisplacementEntity> findAll(Pageable pageable) {
+    public DisplacementEntity updateByDisplacementEntity(DisplacementEntity displacementEntity) {
+        return iDisplacementDao.save(displacementEntity);
+    }
+
+    @Override
+    public Page<DisplacementEntity> findAllByDisplacementEntityPaging(Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iDisplacementDao.findAll(pageable);
     }
 }

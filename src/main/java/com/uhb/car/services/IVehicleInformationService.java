@@ -2,7 +2,6 @@ package com.uhb.car.services;
 
 import com.uhb.car.entity.VehicleInformationEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @Dome interface:IVehicleInformationService
@@ -17,10 +16,10 @@ public interface IVehicleInformationService {
      * @param vehicleInformation
      * @return VehicleInformationEntity
      */
-    VehicleInformationEntity saveVehicleInformation(VehicleInformationEntity vehicleInformation);
+    VehicleInformationEntity saveVehicleInformationEntity(VehicleInformationEntity vehicleInformation);
 
     /**
-     * 根据Id删除车辆信息
+     * 根据车辆id进行删除
      *
      * @param vehicleId
      */
@@ -32,22 +31,24 @@ public interface IVehicleInformationService {
      * @param vehicleInformation
      * @return VehicleInformationEntity
      */
-    VehicleInformationEntity updateVehicleInformation(VehicleInformationEntity vehicleInformation);
+    VehicleInformationEntity updateVehicleInformationEntity(VehicleInformationEntity vehicleInformation);
 
     /**
-     * 分页查询所有车辆信息
-     *
-     * @param pageable
-     * @return Page<VehicleInformationEntity>
-     */
-    Page<VehicleInformationEntity> findAllByVehicleInformation(Pageable pageable);
-
-    /**
-     * 动态查询车辆信息
+     * 分页查询一条车辆信息
      *
      * @param pageSize
      * @param pageNumber
      * @return Page<VehicleInformationEntity>
      */
-    Page<VehicleInformationEntity> findAllByVehicleInformationDynamic(Integer pageSize, Integer pageNumber);
+    Page<VehicleInformationEntity> findAllByVehicleInformationEntityPaging(Integer pageSize, Integer pageNumber);
+
+    /**
+     * 动态分页查询一条车辆信息
+     *
+     * @param vehicleInformation
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<VehicleInformationEntity>
+     */
+    Page<VehicleInformationEntity> findAllByVehicleInformationEntityDynamic(VehicleInformationEntity vehicleInformation, Integer pageSize, Integer pageNumber);
 }

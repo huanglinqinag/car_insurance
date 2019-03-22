@@ -34,9 +34,9 @@ public class DisplacementController {
             @ApiImplicitParam(name = "displacementId", value = "汽车排量id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "displacementSize", value = "汽车排量大小", required = true, dataType = "Integer"),
     })
-    @RequestMapping(value = "saveDisplacement", method = RequestMethod.GET)
-    public ResponseBean saveDisplacement(DisplacementEntity displacement) {
-        DisplacementEntity displacementEntity = iDisplacementService.save(displacement);
+    @RequestMapping(value = "saveByDisplacementEntity", method = RequestMethod.GET)
+    public ResponseBean saveByDisplacementEntity(DisplacementEntity displacement) {
+        DisplacementEntity displacementEntity = iDisplacementService.saveByDisplacementEntity(displacement);
         if (null != displacementEntity) {
             return new ResponseBean(200, "成功", displacementEntity);
         } else {
@@ -46,14 +46,16 @@ public class DisplacementController {
 
     @ApiOperation(value = "根据汽车排量id进行删除", notes = "需要汽车排量Id")
     @ApiImplicitParam(name = "displacementId", value = "汽车排量Id", required = true, dataType = "Integer")
-    @RequestMapping(value = "/deleteAllByDisplacementId", method = RequestMethod.GET)
-    public ResponseBean deleteAllByDisplacementId(Integer displacementId) {
-        Integer i = iDisplacementService.deleteAllByDisplacementId(displacementId);
-        if (null != i) {
-            return new ResponseBean(200, "成功", i);
-        } else {
+    @RequestMapping(value = "/deleteByDisplacementId", method = RequestMethod.GET)
+    public ResponseBean deleteByDisplacementId(Integer displacementId) {
+        try {
+            iDisplacementService.deleteByDisplacementId(displacementId);
+            return new ResponseBean(200, "成功", displacementId);
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new UnauthorizedException();
         }
+
     }
 
     @ApiOperation(value = "添加一条汽车排量信息", notes = "需要两个参数")
@@ -61,9 +63,9 @@ public class DisplacementController {
             @ApiImplicitParam(name = "displacementId", value = "汽车排量id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "displacementSize", value = "汽车排量大小", required = true, dataType = "Integer"),
     })
-    @RequestMapping(value = "saveDisplacement", method = RequestMethod.GET)
-    public ResponseBean updateDisplacement(DisplacementEntity displacement) {
-        DisplacementEntity displacementEntity = iDisplacementService.update(displacement);
+    @RequestMapping(value = "updateByDisplacementEntity", method = RequestMethod.GET)
+    public ResponseBean updateByDisplacementEntity(DisplacementEntity displacement) {
+        DisplacementEntity displacementEntity = iDisplacementService.updateByDisplacementEntity(displacement);
         if (null != displacementEntity) {
             return new ResponseBean(200, "成功", displacementEntity);
         } else {
@@ -76,10 +78,9 @@ public class DisplacementController {
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/findAllByDisplacement", method = RequestMethod.GET)
-    public ResponseBean findAllByDisplacement(Integer pageSize, Integer pageNumber, Pageable pageable) {
-        pageable = new PageRequest(pageSize, pageNumber);
-        Page<DisplacementEntity> displacementEntities = iDisplacementService.findAll(pageable);
+    @RequestMapping(value = "/findAllByDisplacementEntityPaging", method = RequestMethod.GET)
+    public ResponseBean findAllByDisplacementEntityPaging(Integer pageSize, Integer pageNumber) {
+        Page<DisplacementEntity> displacementEntities = iDisplacementService.findAllByDisplacementEntityPaging(pageSize, pageNumber);
         if (null != displacementEntities) {
             return new ResponseBean(200, "成功", displacementEntities);
         } else {

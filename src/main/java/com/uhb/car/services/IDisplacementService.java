@@ -2,7 +2,6 @@ package com.uhb.car.services;
 
 import com.uhb.car.entity.DisplacementEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @Dome interface:对汽车排量进行CURD service
@@ -12,34 +11,35 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IDisplacementService {
     /**
-     * 新增一条汽车排量信息
+     * 添加一条汽车排量信息
      *
-     * @param displacement
+     * @param displacementEntity
      * @return DisplacementEntity
      */
-    DisplacementEntity save(DisplacementEntity displacement);
+    DisplacementEntity saveByDisplacementEntity(DisplacementEntity displacementEntity);
 
     /**
-     * 根据车俩排练Id进行删除
+     * 根据汽车排量Id进行删除
      *
      * @param displacementId
-     * @return int
      */
-    int deleteAllByDisplacementId(Integer displacementId);
+    void deleteByDisplacementId(Integer displacementId);
 
     /**
-     * 修改车辆排量信息
+     * 修改汽车排量信息
      *
-     * @param displacement
+     * @param displacementEntity
      * @return DisplacementEntity
      */
-    DisplacementEntity update(DisplacementEntity displacement);
+    DisplacementEntity updateByDisplacementEntity(DisplacementEntity displacementEntity);
 
     /**
-     * 分页查询所有排量信息
+     * 分页查询所有汽车排量信息
      *
-     * @param pageable
+     * @param pageSize
+     * @param pageNumber
      * @return Page<DisplacementEntity>
      */
-    Page<DisplacementEntity> findAll(Pageable pageable);
+    Page<DisplacementEntity> findAllByDisplacementEntityPaging(Integer pageSize, Integer pageNumber);
+
 }
