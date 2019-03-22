@@ -4,7 +4,10 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.Base64;
 import com.qiniu.util.StringMap;
 import com.qiniu.util.UrlSafeBase64;
+
 import okhttp3.*;
+
+import java.io.IOException;
 
 /**
  * @ClassName:七牛云文件上传工具类
@@ -55,6 +58,24 @@ public class QiniuCloudUtil {
         System.out.println("++++++++++++++++"+DOMAIN+key);
         return DOMAIN+key;
     }
+    /**
+     * 解码
+     *
+     * @param str
+     * @return string
+     */
+    public static byte[] decode(String str) {
+        byte[] bt = null;
+        try {
+            sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
+            bt = decoder.decodeBuffer(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bt;
+    }
+
 }
 
 

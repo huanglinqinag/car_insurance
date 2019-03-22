@@ -1,8 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.util.qiniuyun.QiniuCloudUtil;
-import io.swagger.annotations.*;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,8 +11,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * @ClassName:文件上传
@@ -28,8 +29,8 @@ public class FileController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/uploadImg",method = RequestMethod.GET)
-    public ResponseBean uploadImg(HttpServletRequest request) {
+    @RequestMapping(value="/uploadImg",method = RequestMethod.POST)
+    public ResponseBean uploadImg(HttpServletRequest request) throws UnauthorizedException {
 
         List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("image");
         System.out.println("daxiao"+images.size());
@@ -47,16 +48,9 @@ public class FileController {
                 try {
                     //使用base64方式上传到七牛云
                     String url = QiniuCloudUtil.put64image(bytes, imageName);
-                    System.out.println("地址" + url);
 
                     fileName.append(url+"#");
-
-                   // url[i]+url[]
-                    //http://pocg6c04c.bkt.clouddn.com214c4100-6876-4e0a-8d51-137f5842b366
-                    //http://pocg6c04c.bkt.clouddn.comc37dcfb2-9113-4674-8218-63f4d1cace88
-                    //http://pocg6c04c.bkt.clouddn.comc37dcfb2-9113-4674-8218-63f4d1cace88#http://pocg6c04c.bkt.clouddn.com214c4100-6876-4e0a-8d51-137f5842b366#
                     flag = true;
-                    //return new ResponseBean(200, "上传成功", url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -65,6 +59,23 @@ public class FileController {
             }
         }
         System.out.println("fileName"+fileName.toString());
+        String fileNameS=fileName.toString();
+        String[] sour=fileNameS.split("#");
+        for (int i=0;i<sour.length;i++){
+            System.out.println("分割后的"+sour[i]);
+            String s=sour[i];
+            byte[] bytes=s.getBytes();
+            Base64 base64=new Base64();
+            bytes=base64.decode(bytes);
+            String str11 = null;
+            try {
+                str11 = new String(bytes,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            System.out.println("解密后的url"+str11);
+        }
+
         if(flag){
             return new ResponseBean(200, "上传成功", null);
         }
