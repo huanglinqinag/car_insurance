@@ -52,7 +52,7 @@ public class TypesOfInsuranceController {
     @ApiOperation(value = "根据商业险Id删除", notes = "需要商业险id")
     @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险ID", required = true, dataType = "int")
     @RequestMapping(value = "/deleteByTypesOfInsuranceId", method = RequestMethod.GET)
-    @Log(operationType="删除操作",operationName="删除商业险")
+    @Log(operationType = "删除操作", operationName = "删除商业险")
     public ResponseBean deleteByTypesOfInsuranceId(int typesOfInsuranceId) {
         try {
             iTypesOfInsuranceService.deleteByTypesOfInsuranceId(typesOfInsuranceId);
@@ -81,7 +81,7 @@ public class TypesOfInsuranceController {
         }
     }
 
-    @ApiOperation(value = "动态查询商业险", notes = "需要四个参数")
+    @ApiOperation(value = "分页查询商业险", notes = "需要分页的页数和每页显示的条数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int")
@@ -89,6 +89,22 @@ public class TypesOfInsuranceController {
     @RequestMapping(value = "/findAllByTypesOfInsuranceEntityPaging", method = RequestMethod.GET)
     public ResponseBean findAllByTypesOfInsuranceEntityPaging(Integer pageSize, Integer pageNumber) {
         Page<TypesOfInsuranceEntity> typesOfInsuranceEntityPage = iTypesOfInsuranceService.findAllByTypesOfInsuranceEntityPaging(pageSize, pageNumber);
+        if (null != typesOfInsuranceEntityPage) {
+            return new ResponseBean(200, "成功", typesOfInsuranceEntityPage);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "动态分页查询商业险", notes = "需要分页的页数和每页显示的条数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
+    })
+    @RequestMapping(value = "/findAllByTypesOfInsuranceEntityDynamic", method = RequestMethod.GET)
+    public ResponseBean findAllByTypesOfInsuranceEntityDynamic(TypesOfInsuranceEntity typesOfInsurance, Integer pageSize, Integer pageNumber) {
+        Page<TypesOfInsuranceEntity> typesOfInsuranceEntityPage = iTypesOfInsuranceService.findAllByTypesOfInsuranceEntityDynamic(typesOfInsurance, pageSize, pageNumber);
         if (null != typesOfInsuranceEntityPage) {
             return new ResponseBean(200, "成功", typesOfInsuranceEntityPage);
         } else {

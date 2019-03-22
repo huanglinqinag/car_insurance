@@ -96,4 +96,23 @@ public class CarOwnerController {
             throw new UnauthorizedException();
         }
     }
+
+    @ApiOperation(value = "动态分页查询", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "theOwnerName", value = "车主名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "natrueOfTheOwner", value = "车主性质", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "idTypeId", value = "证件类型", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "idNumber", value = "证件号码", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "pageSize", value = "分页的页数", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示的数据条数", required = true, dataType = "Integer"),
+    })
+    @RequestMapping(value = "/findAllByCarOwnerEntitiesDynamic", method = RequestMethod.GET)
+    public ResponseBean findAllByCarOwnerEntitiesDynamic(CarOwnerEntity carOwner, Integer pageSize, Integer pageNumber) {
+        Page<CarOwnerEntity> carOwnerEntities = iCarOwnerService.findAllByCarOwnerEntitiesDynamic(carOwner, pageSize, pageNumber);
+        if (null != carOwnerEntities) {
+            return new ResponseBean(200, "成功", carOwnerEntities);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.uhb.car.entity.VehicleTypeEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IVehicleTypeService;
 import com.uhb.car.services.imp.VehicleTypeServiceImpl;
+import com.uhb.car.util.interfaceLog.Log;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -43,6 +44,7 @@ public class VehicleTypeController {
     @ApiOperation(value = "删除车辆类型", notes = "需要车辆类型Id")
     @ApiImplicitParam(name = "id", value = "车辆类型ID", required = true, dataType = "int")
     @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
+    @Log(operationType = "删除操作", operationName = "删除保单")
     public ResponseBean deleteById(int id) {
         try {
             iVehicleTypeService.deleteById(id);

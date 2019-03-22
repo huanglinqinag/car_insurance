@@ -45,5 +45,15 @@ public interface ITypesOfInsuranceService {
      */
     Page<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityPaging(Integer pageSize, Integer pageNumber);
 
+    /**
+     * 动态分页查询商业险信息
+     *
+     * @param typesOfInsurance
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<TypesOfInsuranceEntity>
+     */
+    Page<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityDynamic(TypesOfInsuranceEntity typesOfInsurance, Integer pageSize, Integer pageNumber);
+
 }
 

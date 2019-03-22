@@ -88,4 +88,21 @@ public class DisplacementController {
         }
 
     }
+
+    @ApiOperation(value = "动态分页查询所有汽车排量信息", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "displacementSize", value = "汽车排量大小", required = true, dataType = "String"),
+    })
+    @RequestMapping(value = "/findAllByDisplacementEntityDynamic", method = RequestMethod.GET)
+
+    public ResponseBean findAllByDisplacementEntityDynamic(DisplacementEntity displacement, Integer pageSize, Integer pageNumber) {
+        Page<DisplacementEntity> displacementEntities = iDisplacementService.findAllByDisplacementEntityDynamic(displacement, pageSize, pageNumber);
+        if (null != displacementEntities) {
+            return new ResponseBean(200, "成功", displacementEntities);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
 }

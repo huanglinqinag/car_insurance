@@ -42,4 +42,6 @@ public interface IDisplacementService {
      */
     Page<DisplacementEntity> findAllByDisplacementEntityPaging(Integer pageSize, Integer pageNumber);
 
+    Page<DisplacementEntity> findAllByDisplacementEntityDynamic(DisplacementEntity displacement, Integer pageSize, Integer pageNumber);
+
 }

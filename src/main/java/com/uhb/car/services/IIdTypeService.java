@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
  */
 public interface IIdTypeService {
     /**
-     * 添加一条证件信息
+     * 添加证件信息
      *
      * @param idType
      * @return IdTypeEntity
@@ -19,14 +19,14 @@ public interface IIdTypeService {
     IdTypeEntity saveByIdTypeEntity(IdTypeEntity idType);
 
     /**
-     * 根据Id删除一条证件信息
+     * 根据证件Id进行删除
      *
      * @param idTypeId
      */
-    void deleteByIdTypeEntity(Integer idTypeId);
+    void deleteByIdTypeId(Integer idTypeId);
 
     /**
-     * 修改一条证件信息
+     * 修改证件信息
      *
      * @param idType
      * @return IdTypeEntity
@@ -38,7 +38,18 @@ public interface IIdTypeService {
      *
      * @param pageSize
      * @param pageNumber
-     * @return
+     * @return Page<IdTypeEntity>
      */
-    Page<IdTypeEntity> findAllByIdTypeEntity(Integer pageSize, Integer pageNumber);
+    Page<IdTypeEntity> findAllByIdTypeEntityPaging(Integer pageSize, Integer pageNumber);
+
+    /**
+     * 动态分页查询证件信息
+     *
+     * @param idType
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<IdTypeEntity>
+     */
+    Page<IdTypeEntity> findAllByIdTypeEntityDynamic(IdTypeEntity idType, Integer pageSize, Integer pageNumber);
+
 }

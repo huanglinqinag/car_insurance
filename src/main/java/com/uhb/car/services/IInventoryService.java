@@ -12,43 +12,44 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IInventoryService {
     /**
-     * 添加保单
+     * 添加保险
      *
-     * @param inventoryEntity
+     * @param inventory
      * @return InventoryEntity
      */
-    InventoryEntity save(InventoryEntity inventoryEntity);
+    InventoryEntity saveByInventoryEntity(InventoryEntity inventory);
 
     /**
-     * 删除保单
+     * 根据保单信息id删除
      *
      * @param inventoryId
-     * @return void
      */
-    void deleteById(int inventoryId);
+    void deleteByInventoryId(Integer inventoryId);
 
     /**
-     * 修改一条保单信息
+     * 修改保单信息
      *
-     * @param inventoryEntity
+     * @param inventory
      * @return InventoryEntity
      */
-    InventoryEntity update(InventoryEntity inventoryEntity);
+    InventoryEntity updateByInventoryEntity(InventoryEntity inventory);
 
     /**
-     * 分页查询
+     * 分页查询所有保单信息
      *
-     * @param pageable
-     * @return Page<InventoryEntity>
-     */
-    Page<InventoryEntity> findAll(Pageable pageable);
-
-    /**
-     * 动态查询保单信息
-     *
-     * @param pageNumber
      * @param pageSize
+     * @param pageNumber
      * @return Page<InventoryEntity>
      */
-    Page<InventoryEntity> findInventoryEntityDynamic(Integer pageNumber, Integer pageSize);
+    Page<InventoryEntity> findAllByInventoryEntityPaging(Integer pageSize, Integer pageNumber);
+
+    /**
+     * 动态分页查询保单信息
+     *
+     * @param inventory
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<InventoryEntity>
+     */
+    Page<InventoryEntity> findByInventoryEntityDynamic(Integer pageSize, Integer pageNumber, InventoryEntity inventory);
 }

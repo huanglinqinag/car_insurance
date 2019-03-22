@@ -1,17 +1,9 @@
 package com.uhb.car.entity;
 
-<<<<<<< HEAD
+
 import javax.persistence.*;
 
-=======
->>>>>>> origin/master
-/**
- * @ClassName:日志实体类
- * @Author: hlq
- * @Date: 2019/3/21 19:21
- * @Version 1.0
- */
-<<<<<<< HEAD
+
 @Entity
 @Table(name = "sysLog", schema = "vehicle", catalog = "")
 public class SysLog {
@@ -49,30 +41,6 @@ public class SysLog {
     @Column(name = "createDate")
     private String createDate;
 
-
-=======
-public class SysLog {
-    private Integer id;
-    //日志描述
-    private String description;
-    //执行的方法
-    private String method;
-    //日志类型 0:操作日志 1:异常日志
-    private Integer logType;
-    //客户端请求的ip地址
-    private String requestIp;
-    //异常代码
-    private String exceptionCode;
-    //异常详细信息
-    private String exceptionDetail;
-    //请求参数
-    private String params;
-    //操作人
-    private String createBy;
-    //操作时间
-    private String createDate;
-
->>>>>>> origin/master
     public Integer getId() {
         return id;
     }

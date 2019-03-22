@@ -28,37 +28,50 @@ public class InventoryServiceImpl implements IInventoryService {
     @Autowired
     IInventoryDao iInventoryDao;
 
+
     @Override
-    public InventoryEntity save(InventoryEntity inventoryEntity) {
-        return iInventoryDao.save(inventoryEntity);
+    public InventoryEntity saveByInventoryEntity(InventoryEntity inventory) {
+        return iInventoryDao.save(inventory);
     }
 
     @Override
-    public void deleteById(int inventoryId) {
+    public void deleteByInventoryId(Integer inventoryId) {
         iInventoryDao.deleteById(inventoryId);
     }
 
     @Override
-    public InventoryEntity update(InventoryEntity inventoryEntity) {
-        return iInventoryDao.save(inventoryEntity);
+    public InventoryEntity updateByInventoryEntity(InventoryEntity inventory) {
+        return iInventoryDao.save(inventory);
     }
 
     @Override
-    public Page<InventoryEntity> findAll(Pageable pageable) {
+    public Page<InventoryEntity> findAllByInventoryEntityPaging(Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iInventoryDao.findAll(pageable);
     }
 
     @Override
-    public Page<InventoryEntity> findInventoryEntityDynamic(Integer pageNumber, Integer pageSize) {
+    public Page<InventoryEntity> findByInventoryEntityDynamic(Integer pageSize, Integer pageNumber, InventoryEntity inventory) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iInventoryDao.findAll(new Specification<InventoryEntity>() {
             @Override
             public Predicate toPredicate(Root<InventoryEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
+                if (null != inventory.getTypesName()) {
+                    predicateList.add(criteriaBuilder.like(root.get("typesName"), "%" + inventory.getTypesName() + "%"));
+                }
+                if (0 != inventory.getVehicleId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("vehicleId"), inventory.getVehicleId()));
+                }
+                if (0 != inventory.getCarOwnerId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("carOwnerId"), inventory.getTypesName()));
+                }
+                if (0 != inventory.getVehicleAndVesselTaxId()) {
+                    predicateList.add(criteriaBuilder.equal(root.get("vehicleAndVesselTaxId"), inventory.getTypesName()));
+                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }
         }, pageable);
     }
-
 }

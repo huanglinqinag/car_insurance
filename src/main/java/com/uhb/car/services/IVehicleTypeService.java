@@ -4,7 +4,7 @@ import com.uhb.car.entity.VehicleTypeEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:IVehicleTypeService
+ * @Dome interface:对车辆类型进行 CRUD service
  * @Author: LJW
  * @Date: 2019/3/22 08:54
  * @Version 1.0

@@ -48,4 +48,20 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iTypesOfInsuranceDao.findAll(pageable);
     }
+
+    @Override
+    public Page<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityDynamic(TypesOfInsuranceEntity typesOfInsurance, Integer pageSize, Integer pageNumber) {
+        Pageable pageable = new PageRequest(pageSize, pageNumber);
+        return iTypesOfInsuranceDao.findAll(new Specification<TypesOfInsuranceEntity>() {
+            @Override
+            public Predicate toPredicate(Root<TypesOfInsuranceEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (null != typesOfInsurance.getInsuranceName()) {
+                    predicateList.add(criteriaBuilder.like(root.get("insuranceName"), "%" + typesOfInsurance.getInsuranceName() + "%"));
+                }
+                Predicate[] predicates = new Predicate[predicateList.size()];
+                return criteriaBuilder.and(predicateList.toArray(predicates));
+            }
+        }, pageable);
+    }
 }

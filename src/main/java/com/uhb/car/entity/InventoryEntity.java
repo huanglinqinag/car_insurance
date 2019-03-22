@@ -1,6 +1,5 @@
 package com.uhb.car.entity;
 
-import com.uhb.car.services.imp.VehicleAndVesselTaxServiceImpl;
 
 import javax.persistence.*;
 import java.sql.Date;

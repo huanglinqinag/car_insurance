@@ -1,9 +1,7 @@
 package com.uhb.car.services;
 
-import com.uhb.car.entity.DisplacementEntity;
 import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @Dome interface:对车船税进行CRUD Service
@@ -49,6 +47,7 @@ public interface IVehicleAndVesselTaxService {
     /**
      * 动态分页查询车船税信息
      *
+     * @param displacementId
      * @param pageSize
      * @param pageNumber
      * @return Page<VehicleAndVesselTaxEntity>

@@ -15,29 +15,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Version 1.0
  */
 public interface IInventoryDao extends JpaRepository<InventoryEntity, Integer>, CrudRepository<InventoryEntity, Integer>, PagingAndSortingRepository<InventoryEntity, Integer>, JpaSpecificationExecutor<InventoryEntity> {
-    /**
-     * 添加保单
-     *
-     * @param inventoryEntity
-     * @return InventoryEntity
-     */
-    @Override
-    InventoryEntity save(InventoryEntity inventoryEntity);
-
-    /**
-     * 删除保单
-     *
-     * @param inventoryId
-     * @return int
-     */
-    void deleteById(int inventoryId);
-
-    /**
-     * 分页查询
-     *
-     * @param pageable
-     * @return Page<InventoryEntity>
-     */
-    @Override
-    Page<InventoryEntity> findAll(Pageable pageable);
 }

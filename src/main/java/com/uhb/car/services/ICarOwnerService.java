@@ -41,4 +41,15 @@ public interface ICarOwnerService {
      * @return
      */
     Page<CarOwnerEntity> findAllByCarOwnerEntitiesPaging(Integer pageSize, Integer pageNumber);
+
+    /**
+     * 动态分页查询
+     *
+     * @param carOwner
+     * @param pageSize
+     * @param pageNumber
+     * @return Page<CarOwnerEntity>
+     */
+    Page<CarOwnerEntity> findAllByCarOwnerEntitiesDynamic(CarOwnerEntity carOwner, Integer pageSize, Integer pageNumber);
+
 }
