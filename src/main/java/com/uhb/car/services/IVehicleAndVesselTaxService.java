@@ -25,14 +25,19 @@ public interface IVehicleAndVesselTaxService {
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
     /**
-     * 根据车船随id删除
+     * 根据车船税Id删除
      *
      * @param vehicleVesselTaxId
-     * @return int
      */
+    void deleteById(Integer vehicleVesselTaxId);
 
-
-    int deleteByVehicleVesselTaxId(int vehicleVesselTaxId);
+    /**
+     * 修改一条车船税数据
+     *
+     * @param vehicleAndVesselTaxEntity
+     * @return VehicleAndVesselTaxEntity
+     */
+    VehicleAndVesselTaxEntity update(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
     /**
      * 分页查询所有车船税
@@ -45,12 +50,12 @@ public interface IVehicleAndVesselTaxService {
     Page<VehicleAndVesselTaxEntity> findAll(Pageable pageable);
 
     /**
-     * 分页查询
+     * 动态分页查询
      *
      * @param
      * @param pageNumber
      * @param pageSize
      * @return Page<VehicleAndVesselTaxEntity>
      */
-    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize);
+    Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(Integer displacementId, Integer pageNumber, Integer pageSize);
 }

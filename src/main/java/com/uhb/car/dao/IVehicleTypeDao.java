@@ -32,20 +32,20 @@ public interface IVehicleTypeDao extends JpaRepository<VehicleTypeEntity, Intege
     VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
 
     /**
-     * 模糊查询
-     *
-     * @param typeName
-     * @return
-     */
-    List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName);
-
-    /**
      * 根据车辆类型id删除
      *
      * @param id
      */
     @Override
     void deleteById(Integer id);
+
+    /**
+     * 模糊查询
+     *
+     * @param typeName
+     * @return
+     */
+    List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName);
 
     /**
      * fetch data by rule id

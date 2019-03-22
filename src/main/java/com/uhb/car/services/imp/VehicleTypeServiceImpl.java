@@ -66,6 +66,17 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
     }
 
     /**
+     * 修改汽车类型
+     *
+     * @param vehicleTypeEntity
+     * @return
+     */
+    @Override
+    public VehicleTypeEntity update(VehicleTypeEntity vehicleTypeEntity) {
+        return iVehicleTypeDao.save(vehicleTypeEntity);
+    }
+
+    /**
      * 动态查询车辆类型
      *
      * @param typeName

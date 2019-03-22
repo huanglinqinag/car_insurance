@@ -28,13 +28,12 @@ public interface IVehicleAndVesselTaxDao extends JpaRepository<VehicleAndVesselT
     VehicleAndVesselTaxEntity save(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity);
 
     /**
-     * 根据车船税id删除
+     * 根据车船税Id进行删除
      *
      * @param vehicleVesselTaxId
-     * @return int
      */
-
-    int deleteByVehicleVesselTaxId(int vehicleVesselTaxId);
+    @Override
+    void deleteById(Integer vehicleVesselTaxId);
 
     /**
      * 分页查询所有车船税

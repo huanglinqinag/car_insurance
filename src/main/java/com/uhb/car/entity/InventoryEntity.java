@@ -1,5 +1,7 @@
 package com.uhb.car.entity;
 
+import com.uhb.car.services.imp.VehicleAndVesselTaxServiceImpl;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -24,9 +26,39 @@ public class InventoryEntity {
     private int amountPayable;
     private Date startingTime;
     private Date finalProtectionTime;
+    private VehicleInformationEntity vehicleInformationEntity;
+    private VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity;
+    private CarOwnerEntity carOwnerEntity;
+
     @ManyToOne
-    @Column(name = "carOwnerId")
-    public CarOwnerEntity carOwnerEntity;
+    @JoinColumn(name = "car_owner_id", insertable = false, updatable = false)
+    public CarOwnerEntity getCarOwnerEntity() {
+        return carOwnerEntity;
+    }
+
+    public void setCarOwnerEntity(CarOwnerEntity carOwnerEntity) {
+        this.carOwnerEntity = carOwnerEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_and_vessel_tax_id", insertable = false, updatable = false)
+    public VehicleAndVesselTaxEntity getVehicleAndVesselTaxEntity() {
+        return vehicleAndVesselTaxEntity;
+    }
+
+    public void setVehicleAndVesselTaxEntity(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
+        this.vehicleAndVesselTaxEntity = vehicleAndVesselTaxEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", insertable = false, updatable = false)
+    public VehicleInformationEntity getVehicleInformationEntity() {
+        return vehicleInformationEntity;
+    }
+
+    public void setVehicleInformationEntity(VehicleInformationEntity vehicleInformationEntity) {
+        this.vehicleInformationEntity = vehicleInformationEntity;
+    }
 
     @Id
     @Column(name = "inventory_id")
@@ -50,12 +82,12 @@ public class InventoryEntity {
 
     @Basic
     @Column(name = "Typesname")
-    public String getTypesOfInsuranceId() {
+    public String getTypesName() {
         return typesName;
     }
 
-    public void setTypesOfInsuranceId(String typesOfInsuranceId) {
-        this.typesName = typesOfInsuranceId;
+    public void setTypesName(String typesName) {
+        this.typesName = typesName;
     }
 
     @Basic

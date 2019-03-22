@@ -34,14 +34,20 @@ public class TypesOfInsuranceServiceImpl implements ITypesOfInsuranceService {
     }
 
     @Override
+    public void deleteById(int typesOfInsuranceId) {
+        iTypesOfInsuranceDao.deleteById(typesOfInsuranceId);
+    }
+
+    @Override
+    public TypesOfInsuranceEntity update(TypesOfInsuranceEntity types) {
+        return iTypesOfInsuranceDao.save(types);
+    }
+
+    @Override
     public List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName) {
         return iTypesOfInsuranceDao.findAllByInsuranceNameContaining(insuranceName);
     }
 
-    @Override
-    public int deleteAllByTypesOfInsuranceId(int typesOfInsuranceId) {
-        return iTypesOfInsuranceDao.deleteAllByTypesOfInsuranceId(typesOfInsuranceId);
-    }
 
     @Override
     public Page<TypesOfInsuranceEntity> findAll(Pageable pageable) {

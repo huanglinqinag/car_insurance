@@ -1,7 +1,5 @@
 package com.uhb.car.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,11 +15,10 @@ public class VehicleAndVesselTaxEntity {
     private int vehicleVesselTaxId;
     private int displacementId;
     private int price;
-
     private DisplacementEntity displacement;
-    @ManyToOne
-    @JoinColumn(name = "displacement_id",insertable = false, updatable = false)
 
+    @ManyToOne
+    @JoinColumn(name = "displacement_id", insertable = false, updatable = false)
     public DisplacementEntity getDisplacement() {
         return displacement;
     }

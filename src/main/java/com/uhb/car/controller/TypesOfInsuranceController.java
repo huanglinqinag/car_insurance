@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @ClassName:TypesOfInsuranceController
  * @Author: LJW
@@ -36,25 +38,8 @@ public class TypesOfInsuranceController {
             @ApiImplicitParam(name = "sumInsured", value = "保额", required = true, dataType = "int"),
             @ApiImplicitParam(name = "price", value = "金额", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "save", method = RequestMethod.GET)
-    public ResponseBean save(TypesOfInsuranceEntity types) {
-        TypesOfInsuranceEntity typesOfInsuranceEntity = iTypesOfInsuranceService.save(types);
-        if (null != typesOfInsuranceEntity) {
-            return new ResponseBean(200, "成功", typesOfInsuranceEntity);
-        } else {
-            throw new UnauthorizedException();
-        }
-    }
-
-    @ApiOperation(value = "修改商业险数据", notes = "需要四个参数")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险Id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "sumInsured", value = "保额", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "price", value = "金额", required = true, dataType = "int"),
-    })
-    @RequestMapping(value = "modify", method = RequestMethod.GET)
-    public ResponseBean modify(TypesOfInsuranceEntity types) {
+    @RequestMapping(value = "saveTypesOfInsurance", method = RequestMethod.GET)
+    public ResponseBean saveTypesOfInsurance(TypesOfInsuranceEntity types) {
         TypesOfInsuranceEntity typesOfInsuranceEntity = iTypesOfInsuranceService.save(types);
         if (null != typesOfInsuranceEntity) {
             return new ResponseBean(200, "成功", typesOfInsuranceEntity);
@@ -65,23 +50,55 @@ public class TypesOfInsuranceController {
 
     @ApiOperation(value = "根据商业险Id删除", notes = "需要商业险id")
     @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险ID", required = true, dataType = "int")
-    @RequestMapping(value = "/deleteAllByTypesOfInsuranceId", method = RequestMethod.GET)
-    public ResponseBean deleteAllByTypesOfInsuranceId(int typesOfInsuranceId) {
-        int i = iTypesOfInsuranceService.deleteAllByTypesOfInsuranceId(typesOfInsuranceId);
-        if (0 != i) {
-            return new ResponseBean(200, "成功", i);
+    @RequestMapping(value = "/deleteByTypesOfInsuranceId", method = RequestMethod.GET)
+    public ResponseBean deleteByTypesOfInsuranceId(int typesOfInsuranceId) {
+        try {
+            iTypesOfInsuranceService.deleteById(typesOfInsuranceId);
+            return new ResponseBean(200, "成功", typesOfInsuranceId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("test");
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "修改一条商业险数据", notes = "需要四个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "sumInsured", value = "保额", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "price", value = "金额", required = true, dataType = "int"),
+    })
+    @RequestMapping(value = "saveTypesOfInsurance", method = RequestMethod.GET)
+    public ResponseBean updateTypesOfInsurance(TypesOfInsuranceEntity types) {
+        TypesOfInsuranceEntity typesOfInsuranceEntity = iTypesOfInsuranceService.update(types);
+        if (null != typesOfInsuranceEntity) {
+            return new ResponseBean(200, "成功", typesOfInsuranceEntity);
         } else {
             throw new UnauthorizedException();
         }
     }
+
+    @ApiOperation(value = "根据商业险名称进行模糊查询", notes = "需要商业险名称")
+    @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String")
+    @RequestMapping(value = "/findAllByInsuranceNameContaining", method = RequestMethod.GET)
+    public ResponseBean findAllByInsuranceNameContaining(String insuranceName) {
+        List<TypesOfInsuranceEntity> insuranceEntityList = iTypesOfInsuranceService.findAllByInsuranceNameContaining(insuranceName);
+        if (null != insuranceEntityList) {
+            return new ResponseBean(200, "成功", insuranceEntityList);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
 
     @ApiOperation(value = "分页查询商业险", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int")
     })
-    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ResponseBean findAll(int pageSize, int pageNumber, Pageable pageable) {
+    @RequestMapping(value = "/findAllTypesOfInsuranceDynamic", method = RequestMethod.GET)
+    public ResponseBean findAllTypesOfInsuranceDynamic(int pageSize, int pageNumber, Pageable pageable) {
         pageable = new PageRequest(pageSize, pageNumber);
         Page<TypesOfInsuranceEntity> typesOfInsuranceEntities = iTypesOfInsuranceService.findAll(pageable);
         if (null != typesOfInsuranceEntities) {
@@ -91,7 +108,7 @@ public class TypesOfInsuranceController {
         }
     }
 
-    @ApiOperation(value = "动态查询", notes = "需要四个参数")
+    @ApiOperation(value = "动态查询商业险", notes = "需要四个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String "),
             @ApiImplicitParam(name = "typesOfInsuranceId", value = "商业险ID", required = true, dataType = "int"),

@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * @interfaceName:IInventoryDao对保单进行CRUD操作
+ * @Dome interface:IInventoryDao对保单进行CRUD操作
  * @Author: LJW
  * @Date: 2019/3/18 13:55
  * @Version 1.0
@@ -30,7 +30,7 @@ public interface IInventoryDao extends JpaRepository<InventoryEntity, Integer>, 
      * @param inventoryId
      * @return int
      */
-    int deleteByInventoryId(int inventoryId);
+    void deleteById(int inventoryId);
 
     /**
      * 分页查询

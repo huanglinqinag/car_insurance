@@ -23,9 +23,17 @@ public interface IInventoryService {
      * 删除保单
      *
      * @param inventoryId
-     * @return int
+     * @return void
      */
-    int deleteByInventoryId(int inventoryId);
+    void deleteById(int inventoryId);
+
+    /**
+     * 修改一条保单信息
+     *
+     * @param inventoryEntity
+     * @return InventoryEntity
+     */
+    InventoryEntity update(InventoryEntity inventoryEntity);
 
     /**
      * 分页查询
@@ -35,4 +43,12 @@ public interface IInventoryService {
      */
     Page<InventoryEntity> findAll(Pageable pageable);
 
+    /**
+     * 动态查询保单信息
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return Page<InventoryEntity>
+     */
+    Page<InventoryEntity> findInventoryEntityDynamic(Integer pageNumber, Integer pageSize);
 }

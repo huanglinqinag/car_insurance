@@ -35,7 +35,7 @@ public class VehicleAndVesselTaxController {
 
     @ApiOperation(value = "添加车船税", notes = "需要三个参数")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vehicleAndVesselTaxId", value = "车船税Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "vehicleVesselTaxId", value = "车船税Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "displacementId", value = "排量", required = true, dataType = "int"),
             @ApiImplicitParam(name = "price", value = "车船税Id", required = true, dataType = "int"),
 
@@ -50,19 +50,37 @@ public class VehicleAndVesselTaxController {
         }
     }
 
-    @ApiOperation(value = "根据车船税Id删除", tags = "需要车船税Id")
+    @ApiOperation(value = "根据车船税Id删除", notes = "需要车船税Id")
     @ApiImplicitParam(name = "vehicleVesselTaxId", value = "车船税Id", required = true, dataType = "int")
-    @RequestMapping(value = "deleteByVehicleAndVesselTaxId", method = RequestMethod.GET)
-    public ResponseBean deleteByVehicleAndVesselTaxId(int vehicleVesselTaxId) {
-        int i = iVehicleAndVesselTaxService.deleteByVehicleVesselTaxId(vehicleVesselTaxId);
-        if (0 != i) {
-            return new ResponseBean(200, "成功", i);
+    @RequestMapping(value = "deleteByVehicleVesselTaxId", method = RequestMethod.GET)
+    public ResponseBean deleteByVehicleVesselTaxId(Integer vehicleVesselTaxId) {
+        try {
+            iVehicleAndVesselTaxService.deleteById(vehicleVesselTaxId);
+            return new ResponseBean(200, "成功", vehicleVesselTaxId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "添加车船税", notes = "需要三个参数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vehicleVesselTaxId", value = "车船税Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "displacementId", value = "排量", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "price", value = "车船税Id", required = true, dataType = "int"),
+
+    })
+    @RequestMapping(value = "/updateByVehicleAndVesselTax", method = RequestMethod.GET)
+    public ResponseBean updateByVehicleAndVesselTax(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
+        VehicleAndVesselTaxEntity vehicleAndVesselTax = iVehicleAndVesselTaxService.update(vehicleAndVesselTaxEntity);
+        if (null != vehicleAndVesselTax) {
+            return new ResponseBean(200, "成功", vehicleAndVesselTax);
         } else {
             throw new UnauthorizedException();
         }
     }
 
-    @ApiOperation(value = "分页查询", notes = "需要两个参数")
+    @ApiOperation(value = "分页查询车船税", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
@@ -81,12 +99,13 @@ public class VehicleAndVesselTaxController {
 
     @ApiOperation(value = "车船税动态查询", notes = "需要页数和每页显示的条数")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "displacementId", value = "汽车排量Id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
     })
     @RequestMapping(value = "/findVesselTaxEntitiesDynamic", method = RequestMethod.GET)
-    public ResponseBean findVesselTaxEntitiesDynamic(DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize) {
-        Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntities = iVehicleAndVesselTaxService.findVesselTaxEntitiesDynamic(displacementEntity, pageNumber, pageSize);
+    public ResponseBean findVesselTaxEntitiesDynamic(Integer displacementId, Integer pageNumber, Integer pageSize) {
+        Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntities = iVehicleAndVesselTaxService.findVesselTaxEntitiesDynamic(displacementId, pageNumber, pageSize);
         if (null != vehicleAndVesselTaxEntities) {
             return new ResponseBean(200, "成功", vehicleAndVesselTaxEntities);
         } else {

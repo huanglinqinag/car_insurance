@@ -40,7 +40,7 @@ public interface ITypesOfInsuranceDao extends JpaRepository<TypesOfInsuranceEnti
      * @param typesOfInsuranceId
      * @return int
      */
-    int deleteAllByTypesOfInsuranceId(int typesOfInsuranceId);
+    void deleteById(int typesOfInsuranceId);
 
     /**
      * 分页查询商业险

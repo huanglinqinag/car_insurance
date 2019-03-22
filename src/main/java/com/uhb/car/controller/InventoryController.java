@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class InventoryController {
     @Autowired
     IInventoryService iInventoryService;
 
-    @ApiOperation(value = "新增保单", notes = "需要11个参数")
+    @ApiOperation(value = "新增保单信息", notes = "需要11个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "inventoryId", value = "保单Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "insuranceNumber", value = "投保单号", required = true, dataType = "int"),
@@ -41,8 +42,8 @@ public class InventoryController {
             @ApiImplicitParam(name = "finalProtectionTime", value = "终保时间", required = true, dataType = "Date"),
 
     })
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public ResponseBean save(InventoryEntity inventoryEntity) {
+    @RequestMapping(value = "/saveInventory", method = RequestMethod.GET)
+    public ResponseBean saveInventory(InventoryEntity inventoryEntity) {
         InventoryEntity Inventory = iInventoryService.save(inventoryEntity);
         if (null != Inventory) {
             return new ResponseBean(200, "成功", Inventory);
@@ -51,11 +52,11 @@ public class InventoryController {
         }
     }
 
-    @ApiOperation(value = "修改保单", notes = "需要11个参数")
+    @ApiOperation(value = "修改保单信息", notes = "需要11个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "inventoryId", value = "保单Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "insuranceNumber", value = "投保单号", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "typesOfInsuranceId", value = "品种名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "typesName", value = "险种类型", required = true, dataType = "String"),
             @ApiImplicitParam(name = "vehicleId", value = "车辆信息", required = true, dataType = "int"),
             @ApiImplicitParam(name = "carOwnerId", value = "车主信息", required = true, dataType = "int"),
             @ApiImplicitParam(name = "premium", value = "保费", required = true, dataType = "int"),
@@ -66,8 +67,8 @@ public class InventoryController {
             @ApiImplicitParam(name = "finalProtectionTime", value = "终保时间", required = true, dataType = "Date"),
 
     })
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public ResponseBean modify(InventoryEntity inventoryEntity) {
+    @RequestMapping(value = "/updateInventory", method = RequestMethod.GET)
+    public ResponseBean updateInventory(InventoryEntity inventoryEntity) {
         InventoryEntity Inventory = iInventoryService.save(inventoryEntity);
         if (null != Inventory) {
             return new ResponseBean(200, "成功", Inventory);
@@ -80,12 +81,28 @@ public class InventoryController {
     @ApiImplicitParam(name = "inventoryId", value = "保单Id", required = true, dataType = "int")
     @RequestMapping(value = "/deleteByInventoryId", method = RequestMethod.GET)
     public ResponseBean deleteByInventoryId(int inventoryId) {
-        int i = iInventoryService.deleteByInventoryId(inventoryId);
-        if (0 != i) {
-            return new ResponseBean(200, "成功", i);
+        try {
+            iInventoryService.deleteById(inventoryId);
+            return new ResponseBean(200, "成功", inventoryId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnauthorizedException();
+        }
+    }
+
+    @ApiOperation(value = "动态查询保单信息", notes = "需要分页的页数和每页显示的数据条数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "Integer"),
+
+    })
+    @RequestMapping(value = "/findInventoryEntityDynamic", method = RequestMethod.GET)
+    public ResponseBean findInventoryEntityDynamic(Integer pageNumber, Integer pageSize) {
+        Page<InventoryEntity> inventoryEntityPage = iInventoryService.findInventoryEntityDynamic(pageNumber, pageSize);
+        if (null != inventoryEntityPage) {
+            return new ResponseBean(200, "成功", inventoryEntityPage);
         } else {
             throw new UnauthorizedException();
-
         }
     }
 }

@@ -22,6 +22,22 @@ public interface ITypesOfInsuranceService {
     TypesOfInsuranceEntity save(TypesOfInsuranceEntity types);
 
     /**
+     * 根据商业险Id删除
+     *
+     * @param typesOfInsuranceId
+     * @return int
+     */
+    void deleteById(int typesOfInsuranceId);
+
+    /**
+     * 修改商业险信息
+     *
+     * @param types
+     * @return TypesOfInsuranceEntity
+     */
+    TypesOfInsuranceEntity update(TypesOfInsuranceEntity types);
+
+    /**
      * 根据商业险名称进行模糊查询
      *
      * @param insuranceName
@@ -29,13 +45,6 @@ public interface ITypesOfInsuranceService {
      */
     List<TypesOfInsuranceEntity> findAllByInsuranceNameContaining(String insuranceName);
 
-    /**
-     * 根据商业险Id删除
-     *
-     * @param typesOfInsuranceId
-     * @return int
-     */
-    int deleteAllByTypesOfInsuranceId(int typesOfInsuranceId);
 
     /**
      * 分页查询商业险

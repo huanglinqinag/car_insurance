@@ -34,20 +34,27 @@ public class VehicleAndVesselTaxServiceImpl implements IVehicleAndVesselTaxServi
         return iVehicleAndVesselTaxDao.save(vehicleAndVesselTaxEntity);
     }
 
+    @Override
+    public void deleteById(Integer vehicleVesselTaxId) {
+        iVehicleAndVesselTaxDao.deleteById(vehicleVesselTaxId);
+    }
 
     @Override
-    public int deleteByVehicleVesselTaxId(int vehicleVesselTaxId) {
-        return iVehicleAndVesselTaxDao.deleteByVehicleVesselTaxId(vehicleVesselTaxId);
+    public VehicleAndVesselTaxEntity update(VehicleAndVesselTaxEntity vehicleAndVesselTaxEntity) {
+        return iVehicleAndVesselTaxDao.save(vehicleAndVesselTaxEntity);
     }
 
 
     @Override
-    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(DisplacementEntity displacementEntity, Integer pageNumber, Integer pageSize) {
+    public Page<VehicleAndVesselTaxEntity> findVesselTaxEntitiesDynamic(Integer displacementId, Integer pageNumber, Integer pageSize) {
         Pageable pageable = new PageRequest(pageSize, pageNumber);
         return iVehicleAndVesselTaxDao.findAll(new Specification<VehicleAndVesselTaxEntity>() {
             @Override
             public Predicate toPredicate(Root<VehicleAndVesselTaxEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
+                if (null != displacementId) {
+                    predicateList.add(criteriaBuilder.equal(root.get("displacementId"), displacementId));
+                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }

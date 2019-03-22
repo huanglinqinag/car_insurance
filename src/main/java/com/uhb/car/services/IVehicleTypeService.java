@@ -16,6 +16,21 @@ public interface IVehicleTypeService {
     VehicleTypeEntity save(VehicleTypeEntity vehicleTypeEntity);
 
     /**
+     * 根据id删除
+     *
+     * @param id
+     */
+    void deleteById(Integer id);
+
+    /**
+     * 修改一个车辆类型
+     *
+     * @param vehicleTypeEntity
+     * @return VehicleTypeEntity
+     */
+    VehicleTypeEntity update(VehicleTypeEntity vehicleTypeEntity);
+
+    /**
      * 模糊查询
      *
      * @param typeName
@@ -23,12 +38,6 @@ public interface IVehicleTypeService {
      */
     List<VehicleTypeEntity> findAllByTypeNameContaining(String typeName);
 
-    /**
-     * 根据id删除
-     *
-     * @param id
-     */
-    void deleteById(Integer id);
 
     /**
      * 分页查询

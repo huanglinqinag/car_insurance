@@ -19,6 +19,17 @@ public class CarOwnerEntity {
     private String idNumber;
     private String relation;
     private String picture;
+    private IdTypeEntity idTypeEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "id_type_id", insertable = false, updatable = false)
+    public IdTypeEntity getIdTypeEntity() {
+        return idTypeEntity;
+    }
+
+    public void setIdTypeEntity(IdTypeEntity idTypeEntity) {
+        this.idTypeEntity = idTypeEntity;
+    }
 
     @Id
     @Column(name = "car_owner_id")
@@ -92,8 +103,12 @@ public class CarOwnerEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CarOwnerEntity that = (CarOwnerEntity) o;
         return carOwnerId == that.carOwnerId &&
                 idTypeId == that.idTypeId &&
