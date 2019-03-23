@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName:TypesOfInsuranceServiceImpl
+ * @ClassName:实现对商业险进行CRUD操作 TypesOfInsuranceServiceImpl
  * @Author: LJW
  * @Date: 2019/3/17 14:22
  * @Version 1.0

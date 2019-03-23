@@ -25,6 +25,28 @@ public class VehicleInformationEntity {
     private int seating;
     private VehicleTypeEntity vehicleTypeEntity;
     private NatureOfVehicleUseEntity natureOfVehicleUseEntity;
+    private EnergyTypeEntity energyTypeEntity;
+    private DisplacementEntity displacementEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "displacement_id", insertable = false, updatable = false)
+    public DisplacementEntity getDisplacementEntity() {
+        return displacementEntity;
+    }
+
+    public void setDisplacementEntity(DisplacementEntity displacementEntity) {
+        this.displacementEntity = displacementEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "energy_type_id", insertable = false, updatable = false)
+    public EnergyTypeEntity getEnergyTypeEntity() {
+        return energyTypeEntity;
+    }
+
+    public void setEnergyTypeEntity(EnergyTypeEntity energyTypeEntity) {
+        this.energyTypeEntity = energyTypeEntity;
+    }
 
     @ManyToOne
     @JoinColumn(name = "nature_of_vehicle_use_id", insertable = false, updatable = false)

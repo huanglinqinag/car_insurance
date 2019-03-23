@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * @interfaceName:商业险CUDRService
+ * @interfaceName:对商业险进行CUDR ITypesOfInsuranceService
  * @Author: LJW
  * @Date: 2019/3/17 14:53
  * @Version 1.0

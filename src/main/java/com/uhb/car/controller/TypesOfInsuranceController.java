@@ -96,7 +96,7 @@ public class TypesOfInsuranceController {
         }
     }
 
-    @ApiOperation(value = "动态分页查询商业险", notes = "需要分页的页数和每页显示的条数")
+    @ApiOperation(value = "动态分页查询商业险", notes = "需要3个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "insuranceName", value = "商业险名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName:InventoryServiceImpl
+ * @ClassName:实现对保单信息的CRUD操作 InventoryServiceImpl
  * @Author: LJW
  * @Date: 2019/3/18 14:16
  * @Version 1.0

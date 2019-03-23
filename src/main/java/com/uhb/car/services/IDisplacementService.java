@@ -4,7 +4,7 @@ import com.uhb.car.entity.DisplacementEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:对汽车排量进行CURD service
+ * @Dome interface:对汽车排量进行CURD IDisplacementService
  * @Author: LJW
  * @Date: 2019/3/19 17:51
  * @Version 1.0

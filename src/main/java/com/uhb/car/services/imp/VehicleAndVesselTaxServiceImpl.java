@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Dome Class:对车船税进行CRUD ServiceImp
+ * @Dome Class:实现对车船税的CRUD操作 VehicleAndVesselTaxServiceImpl
  * @Author: LJW
  * @Date: 2019/3/17 13:15
  * @Version 1.0

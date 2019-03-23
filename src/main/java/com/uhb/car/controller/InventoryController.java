@@ -109,7 +109,7 @@ public class InventoryController {
         }
     }
 
-    @ApiOperation(value = "动态分页查询", notes = "")
+    @ApiOperation(value = "动态分页查询", notes = "需要6个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "typesName", value = "险种类型", required = true, dataType = "String"),
             @ApiImplicitParam(name = "vehicleId", value = "车辆信息Id", required = true, dataType = "Integer"),

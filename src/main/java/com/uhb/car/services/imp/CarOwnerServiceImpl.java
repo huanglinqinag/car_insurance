@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Dome Class:实现对车主信息的CRUD CarOwnerServiceImpl
+ * @Dome Class:实现对车主信息的CRUD操作 CarOwnerServiceImpl
  * @Author: LJW
  * @Date: 2019/3/19 19:07
  * @Version 1.0

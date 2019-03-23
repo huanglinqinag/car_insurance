@@ -4,7 +4,7 @@ import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:对车船税进行CRUD Service
+ * @Dome interface:对车船税进行CRUD IVehicleAndVesselTaxService
  * @Author: LJW
  * @Date: 2019/3/17 13:14
  * @Version 1.0

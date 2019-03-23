@@ -82,7 +82,7 @@ public class CarOwnerController {
         }
     }
 
-    @ApiOperation(value = "分页查询车主信息", notes = "需要分页的页数和每页显示数据的条数")
+    @ApiOperation(value = "分页查询车主信息", notes = "需要两个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize", value = "分页的页数", required = true, dataType = "Integer"),
@@ -97,7 +97,7 @@ public class CarOwnerController {
         }
     }
 
-    @ApiOperation(value = "动态分页查询", notes = "")
+    @ApiOperation(value = "动态分页查询", notes = "需要6个人参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "theOwnerName", value = "车主名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "natrueOfTheOwner", value = "车主性质", required = true, dataType = "String"),

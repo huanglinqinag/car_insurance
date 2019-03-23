@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @interfaceName:IInventoryService
+ * @interfaceName:对保单进行CRUD IInventoryService
  * @Author: LJW
  * @Date: 2019/3/18 14:15
  * @Version 1.0

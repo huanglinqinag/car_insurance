@@ -4,7 +4,7 @@ import com.uhb.car.entity.IdTypeEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:IIdTypeService
+ * @Dome interface:对证件信息进行CRUD IIdTypeService
  * @Author: LJW
  * @Date: 2019/3/22 09:16
  * @Version 1.0

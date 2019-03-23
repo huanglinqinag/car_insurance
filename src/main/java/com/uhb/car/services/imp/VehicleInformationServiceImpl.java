@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Dome Class:VehicleInformationServiceImpl
+ * @Dome Class:实现对车辆信息CRUD操作 VehicleInformationServiceImpl
  * @Author: LJW
  * @Date: 2019/3/22 08:58
  * @Version 1.0

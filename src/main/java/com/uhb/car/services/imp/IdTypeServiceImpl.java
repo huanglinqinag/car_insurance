@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Dome Class:IdTypeServiceImpl
+ * @Dome Class:实现对证件信息的CRUD IdTypeServiceImpl
  * @Author: LJW
  * @Date: 2019/3/22 09:21
  * @Version 1.0

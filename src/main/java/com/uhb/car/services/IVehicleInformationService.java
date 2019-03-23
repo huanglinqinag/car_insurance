@@ -4,7 +4,7 @@ import com.uhb.car.entity.VehicleInformationEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:IVehicleInformationService
+ * @Dome interface:对车辆信息进行CRUD的接口 IVehicleInformationService
  * @Author: LJW
  * @Date: 2019/3/22 08:54
  * @Version 1.0

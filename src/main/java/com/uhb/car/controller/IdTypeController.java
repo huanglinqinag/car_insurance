@@ -72,22 +72,6 @@ public class IdTypeController {
         }
     }
 
-    @ApiOperation(value = "分页查询", notes = "需要分页的页数和每页显示数据的条数")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageSize", value = "分页页数", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageNumber", value = "每页显示的数据条数", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "idTypeName", value = "证件类型", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "ownerNature", value = "车主性质 ", required = true, dataType = "Integer"),
-    })
-    @RequestMapping(value = "/findAllByIdTypeEntityPaging", method = RequestMethod.GET)
-    public ResponseBean findAllByIdTypeEntityPaging(Integer pageSize, Integer pageNumber) {
-        Page<IdTypeEntity> idTypeEntities = iIdTypeService.findAllByIdTypeEntityPaging(pageSize, pageNumber);
-        if (null != idTypeEntities) {
-            return new ResponseBean(200, "成功", idTypeEntities);
-        } else {
-            throw new UnauthorizedException();
-        }
-    }
 
     @ApiOperation(value = "分页查询", notes = "需要分页的页数和每页显示数据的条数")
     @ApiImplicitParams({
@@ -104,4 +88,22 @@ public class IdTypeController {
             throw new UnauthorizedException();
         }
     }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要4条数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageSize", value = "分页页数", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageNumber", value = "每页显示的数据条数", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "idTypeName", value = "证件类型", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "ownerNature", value = "车主性质 ", required = true, dataType = "Integer"),
+    })
+    @RequestMapping(value = "/findAllByIdTypeEntityPaging", method = RequestMethod.GET)
+    public ResponseBean findAllByIdTypeEntityPaging(Integer pageSize, Integer pageNumber) {
+        Page<IdTypeEntity> idTypeEntities = iIdTypeService.findAllByIdTypeEntityPaging(pageSize, pageNumber);
+        if (null != idTypeEntities) {
+            return new ResponseBean(200, "成功", idTypeEntities);
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
 }

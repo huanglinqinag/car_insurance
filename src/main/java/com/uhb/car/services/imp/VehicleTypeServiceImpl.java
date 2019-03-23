@@ -12,7 +12,7 @@ import javax.persistence.criteria.*;
 import java.util.*;
 
 /**
- * Demo class 实现车辆信息的CRUD
+ * Demo class 实现车辆信息的CRUD操作 VehicleTypeServiceImpl
  *
  * @author Admin
  * @date 2019/3/9 18:13

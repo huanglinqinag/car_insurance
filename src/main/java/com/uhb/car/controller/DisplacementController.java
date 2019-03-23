@@ -89,7 +89,7 @@ public class DisplacementController {
 
     }
 
-    @ApiOperation(value = "动态分页查询所有汽车排量信息", notes = "")
+    @ApiOperation(value = "动态分页查询所有汽车排量信息", notes = "需要3个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "int"),

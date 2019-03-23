@@ -4,7 +4,7 @@ import com.uhb.car.entity.CarOwnerEntity;
 import org.springframework.data.domain.Page;
 
 /**
- * @Dome interface:对车主信息进行CRUD Service
+ * @Dome interface:对车主信息进行CRUD ICarOwnerService
  * @Author: LJW
  * @Date: 2019/3/19 19:06
  * @Version 1.0
