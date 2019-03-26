@@ -148,8 +148,12 @@ public class ClaimSettlementEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ClaimSettlementEntity that = (ClaimSettlementEntity) o;
         return claimSettlementId == that.claimSettlementId &&
                 vehicleId == that.vehicleId &&

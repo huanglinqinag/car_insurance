@@ -1,6 +1,7 @@
 package com.uhb.car.dao;
 
 import com.uhb.car.entity.DisplacementEntity;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
@@ -12,5 +13,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Date: 2019/3/19 17:40
  * @Version 1.0
  */
-public interface IDisplacementDao extends JpaRepository<DisplacementEntity, Integer>, CrudRepository<DisplacementEntity, Integer>, PagingAndSortingRepository<DisplacementEntity, Integer>, JpaSpecificationExecutor<DisplacementEntity> {
+public interface IDisplacementDao extends
+        JpaRepository<DisplacementEntity, Integer>,
+        CrudRepository<DisplacementEntity, Integer>,
+        PagingAndSortingRepository<DisplacementEntity, Integer>,
+        JpaSpecificationExecutor<DisplacementEntity>,
+        DataTablesRepository<DisplacementEntity, Integer> {
 }

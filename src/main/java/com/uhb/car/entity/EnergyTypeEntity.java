@@ -37,8 +37,12 @@ public class EnergyTypeEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         EnergyTypeEntity that = (EnergyTypeEntity) o;
         return energyTypeId == that.energyTypeId &&
                 Objects.equals(energyTypeName, that.energyTypeName);

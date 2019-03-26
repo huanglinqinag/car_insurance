@@ -1,7 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.ITypesOfInsuranceDao;
 import com.uhb.car.entity.TypesOfInsuranceEntity;
+import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import com.uhb.car.services.ITypesOfInsuranceService;
 import com.uhb.car.util.interfaceLog.Log;
 import io.swagger.annotations.Api;
@@ -13,10 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,6 +36,8 @@ import java.util.List;
 public class TypesOfInsuranceController {
     @Autowired
     ITypesOfInsuranceService iTypesOfInsuranceService;
+    @Autowired
+    ITypesOfInsuranceDao iTypesOfInsuranceDao;
 
     @ApiOperation(value = "添加一条商业险数据", notes = "需要四个参数")
     @ApiImplicitParams({
@@ -102,13 +109,19 @@ public class TypesOfInsuranceController {
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/findAllByTypesOfInsuranceEntityDynamic", method = RequestMethod.GET)
-    public ResponseBean findAllByTypesOfInsuranceEntityDynamic(TypesOfInsuranceEntity typesOfInsurance, Integer pageSize, Integer pageNumber) {
+    @RequestMapping(value = "/findAllByTypesOfInsuranceEntityDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findAllByTypesOfInsuranceEntityDynamicOne(TypesOfInsuranceEntity typesOfInsurance, Integer pageSize, Integer pageNumber) {
         Page<TypesOfInsuranceEntity> typesOfInsuranceEntityPage = iTypesOfInsuranceService.findAllByTypesOfInsuranceEntityDynamic(typesOfInsurance, pageSize, pageNumber);
         if (null != typesOfInsuranceEntityPage) {
             return new ResponseBean(200, "成功", typesOfInsuranceEntityPage);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByTypesOfInsuranceEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<TypesOfInsuranceEntity> findAllByTypesOfInsuranceEntityDynamic(@Valid DataTablesInput input) {
+        return iTypesOfInsuranceDao.findAll(input);
     }
 }

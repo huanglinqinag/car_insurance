@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/vehicleInformationUploadImg" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td><input type="text" name="vehicleId"></td>
+        </tr>
+        <tr>
+            <td>车牌号</td>
+            <td><input type="text" name="licensePlateNumber"></td>
+        </tr>
+        <tr>
+            <td>车架号</td>
+            <td><input type="text" name="vin"></td>
+        </tr>
+        <tr>
+            <td>发动机号</td>
+            <td><input type="text" name="engineNumber"></td>
+        </tr>
+        <tr>
+            <td>车辆种类</td>
+            <td><input type="text" name="vehicleTypeId"></td>
+        </tr>
+        <td>车辆使用性质</td>
+        <td><input type="text" name="natureOfVehicleUseId"></td>
+        </tr>
+        </tr>
+        <td>初次登记日期</td>
+        <td><input type="text" name="dateOfInitialRegistration"></td>
+        </tr>
+        </tr>
+        <td>能源种类</td>
+        <td><input type="text" name="energyTypeId"></td>
+        </tr>
+        <tr>
+            <td>行驶证图片</td>
+            <td><input type="file" name="image" value="选择1"></td>
+            <td><input type="file" name="image" value="选择2"></td>
+        </tr>
+        </tr>
+        <td>排量</td>
+        <td><input type="text" name="displacementId"></td>
+        </tr>
+        </tr>
+        <td>座位数</td>
+        <td><input type="text" name="seating"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="提交"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.IVehicleTypeDao;
+import com.uhb.car.entity.VehicleAndVesselTaxEntity;
 import com.uhb.car.entity.VehicleTypeEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IVehicleTypeService;
@@ -9,8 +11,11 @@ import com.uhb.car.util.interfaceLog.Log;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,6 +30,8 @@ import java.util.List;
 public class VehicleTypeController {
     @Autowired
     private IVehicleTypeService iVehicleTypeService;
+    @Autowired
+    IVehicleTypeDao iVehicleTypeDao;
 
     @ApiOperation(value = "添加车辆类型", notes = "需要车辆类型Id和车辆类型名称")
     @ApiImplicitParams({
@@ -93,14 +100,20 @@ public class VehicleTypeController {
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "显示条数", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/findAllByVehicleTypeEntityDynamic", method = RequestMethod.GET)
-    public ResponseBean findAllByVehicleTypeEntityDynamic(Integer pageSize, Integer pageNumber, String typeName) {
+    @RequestMapping(value = "/findAllByVehicleTypeEntityDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findAllByVehicleTypeEntityDynamicOne(Integer pageSize, Integer pageNumber, String typeName) {
         Page<VehicleTypeEntity> vehicleTypeEntityList = iVehicleTypeService.findAllByVehicleTypeEntityDynamic(typeName, pageSize, pageNumber);
         if (vehicleTypeEntityList != null) {
             return new ResponseBean(200, "成功", vehicleTypeEntityList);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态查询车辆类型", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByVehicleTypeEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<VehicleTypeEntity> findAllByVehicleTypeEntityDynamic(@Valid DataTablesInput input) {
+        return iVehicleTypeDao.findAll(input);
     }
 
 

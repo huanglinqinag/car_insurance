@@ -37,8 +37,12 @@ public class NatureOfVehicleUseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NatureOfVehicleUseEntity that = (NatureOfVehicleUseEntity) o;
         return natureOfVehicleUseId == that.natureOfVehicleUseId &&
                 Objects.equals(natureName, that.natureName);

@@ -1,7 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.IInventoryDao;
 import com.uhb.car.entity.InventoryEntity;
+import com.uhb.car.entity.NatureOfVehicleUseEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IInventoryService;
 import com.uhb.car.util.interfaceLog.Log;
@@ -11,9 +13,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @ClassName:InventoryController
@@ -27,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class InventoryController {
     @Autowired
     IInventoryService iInventoryService;
+    @Autowired
+    IInventoryDao iInventoryDao;
 
     @ApiOperation(value = "新增保单信息", notes = "需要11个参数")
     @ApiImplicitParams({
@@ -119,13 +127,19 @@ public class InventoryController {
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "Integer"),
 
     })
-    @RequestMapping(value = "/findByInventoryEntityDynamic", method = RequestMethod.GET)
-    public ResponseBean findByInventoryEntityDynamic(Integer pageSize, Integer pageNumber, InventoryEntity inventory) {
+    @RequestMapping(value = "/findByInventoryEntityDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findByInventoryEntityDynamicOne(Integer pageSize, Integer pageNumber, InventoryEntity inventory) {
         Page<InventoryEntity> inventoryEntityPage = iInventoryService.findByInventoryEntityDynamic(pageSize, pageNumber, inventory);
         if (null != inventoryEntityPage) {
             return new ResponseBean(200, "成功", inventoryEntityPage);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findByInventoryEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<InventoryEntity> findByInventoryEntityDynamic(@Valid DataTablesInput input) {
+        return iInventoryDao.findAll(input);
     }
 }

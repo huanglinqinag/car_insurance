@@ -180,8 +180,12 @@ public class VehicleInformationEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         VehicleInformationEntity that = (VehicleInformationEntity) o;
         return vehicleId == that.vehicleId &&
                 vehicleTypeId == that.vehicleTypeId &&

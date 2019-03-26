@@ -1,7 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.IEnergyTypeDao;
 import com.uhb.car.entity.EnergyTypeEntity;
+import com.uhb.car.entity.IdTypeEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IEnergyTypeService;
 import io.swagger.annotations.Api;
@@ -10,9 +12,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Dome Class:EnergyTypeController
@@ -26,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class EnergyTypeController {
     @Autowired
     IEnergyTypeService iEnergyTypeService;
+    @Autowired
+    IEnergyTypeDao iEnergyTypeDao;
 
     @ApiOperation(value = "添加能源类型", notes = "需要要两个参数")
     @ApiImplicitParams({
@@ -94,14 +102,20 @@ public class EnergyTypeController {
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "energyTypeName", value = "能源类型名称", required = true, dataType = "String"),
     })
-    @RequestMapping(value = "/findAllByEnergyTypeEntityDynamic", method = RequestMethod.GET)
-    public ResponseBean findAllByEnergyTypeEntityDynamic(EnergyTypeEntity energyType, Integer pageSize, Integer pageNumber) {
+    @RequestMapping(value = "/findAllByEnergyTypeEntityDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findAllByEnergyTypeEntityDynamicOne(EnergyTypeEntity energyType, Integer pageSize, Integer pageNumber) {
         Page<EnergyTypeEntity> energyTypeEntities = iEnergyTypeService.findAllByEnergyTypeEntityDynamic(energyType, pageSize, pageNumber);
         if (null != energyTypeEntities) {
             return new ResponseBean(200, "成功", energyTypeEntities);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByEnergyTypeEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<EnergyTypeEntity> findAllByEnergyTypeEntityDynamic(@Valid DataTablesInput input) {
+        return iEnergyTypeDao.findAll(input);
     }
 }
 

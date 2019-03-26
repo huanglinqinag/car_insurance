@@ -1,7 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.IDisplacementDao;
 import com.uhb.car.entity.DisplacementEntity;
+import com.uhb.car.entity.EnergyTypeEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IDisplacementService;
 import io.swagger.annotations.Api;
@@ -12,9 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Dome Class:DisplacementController
@@ -28,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DisplacementController {
     @Autowired
     IDisplacementService iDisplacementService;
+    @Autowired
+    IDisplacementDao iDisplacementDao;
 
     @ApiOperation(value = "添加一条汽车排量信息", notes = "需要两个参数")
     @ApiImplicitParams({
@@ -95,14 +103,20 @@ public class DisplacementController {
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "displacementSize", value = "汽车排量大小", required = true, dataType = "String"),
     })
-    @RequestMapping(value = "/findAllByDisplacementEntityDynamic", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllByDisplacementEntityDynamicOne", method = RequestMethod.GET)
 
-    public ResponseBean findAllByDisplacementEntityDynamic(DisplacementEntity displacement, Integer pageSize, Integer pageNumber) {
+    public ResponseBean findAllByDisplacementEntityDynamicOne(DisplacementEntity displacement, Integer pageSize, Integer pageNumber) {
         Page<DisplacementEntity> displacementEntities = iDisplacementService.findAllByDisplacementEntityDynamic(displacement, pageSize, pageNumber);
         if (null != displacementEntities) {
             return new ResponseBean(200, "成功", displacementEntities);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByDisplacementEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<DisplacementEntity> findAllByDisplacementEntityDynamic(@Valid DataTablesInput input) {
+        return iDisplacementDao.findAll(input);
     }
 }

@@ -1,7 +1,9 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.ICarOwnerDao;
 import com.uhb.car.entity.CarOwnerEntity;
+import com.uhb.car.entity.ClaimSettlementEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.ICarOwnerService;
 import io.swagger.annotations.Api;
@@ -12,9 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Dome Class:CarOwnerController
@@ -28,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarOwnerController {
     @Autowired
     ICarOwnerService iCarOwnerService;
+    @Autowired
+    ICarOwnerDao iCarOwnerDao;
 
     @ApiOperation(value = "新增车主信息", notes = "需要7个参数")
     @ApiImplicitParams({
@@ -97,7 +105,7 @@ public class CarOwnerController {
         }
     }
 
-    @ApiOperation(value = "动态分页查询", notes = "需要6个人参数")
+    @ApiOperation(value = "动态分页查询", notes = "需要6个参数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "theOwnerName", value = "车主名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "natrueOfTheOwner", value = "车主性质", required = true, dataType = "String"),
@@ -106,13 +114,19 @@ public class CarOwnerController {
             @ApiImplicitParam(name = "pageSize", value = "分页的页数", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示的数据条数", required = true, dataType = "Integer"),
     })
-    @RequestMapping(value = "/findAllByCarOwnerEntitiesDynamic", method = RequestMethod.GET)
-    public ResponseBean findAllByCarOwnerEntitiesDynamic(CarOwnerEntity carOwner, Integer pageSize, Integer pageNumber) {
+    @RequestMapping(value = "/findAllByCarOwnerEntitiesDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findAllByCarOwnerEntitiesDynamicOne(CarOwnerEntity carOwner, Integer pageSize, Integer pageNumber) {
         Page<CarOwnerEntity> carOwnerEntities = iCarOwnerService.findAllByCarOwnerEntitiesDynamic(carOwner, pageSize, pageNumber);
         if (null != carOwnerEntities) {
             return new ResponseBean(200, "成功", carOwnerEntities);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByCarOwnerEntitiesDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<CarOwnerEntity> findAllByCarOwnerEntitiesDynamic(@Valid DataTablesInput input) {
+        return iCarOwnerDao.findAll(input);
     }
 }

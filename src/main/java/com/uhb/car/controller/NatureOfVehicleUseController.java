@@ -1,6 +1,7 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.INatureOfVehicleUseDao;
 import com.uhb.car.entity.NatureOfVehicleUseEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.INatureOfVehicleUseService;
@@ -10,9 +11,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Dome Class:NatureOfVehicleUseController
@@ -26,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class NatureOfVehicleUseController {
     @Autowired
     INatureOfVehicleUseService iNatureOfVehicleUseService;
+    @Autowired
+    INatureOfVehicleUseDao iNatureOfVehicleUseDao;
 
     @ApiOperation(value = "添加一条车辆性质", notes = "需要两个参数")
     @ApiImplicitParams({
@@ -91,14 +98,19 @@ public class NatureOfVehicleUseController {
             @ApiImplicitParam(name = "pageSize", value = "分页页数", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示数据条数", required = true, dataType = "Integer")
     })
-    @RequestMapping(value = "/findByNatureOfVehicleUseEntityPagingDynamic", method = RequestMethod.GET)
-    public ResponseBean findByNatureOfVehicleUseEntityPagingDynamic(NatureOfVehicleUseEntity natureOfVehicleUse, Integer pageSize, Integer pageNumber) {
+    @RequestMapping(value = "/findByNatureOfVehicleUseEntityPagingDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findByNatureOfVehicleUseEntityPagingDynamicOne(NatureOfVehicleUseEntity natureOfVehicleUse, Integer pageSize, Integer pageNumber) {
         Page<NatureOfVehicleUseEntity> natureOfVehicleUseEntities = iNatureOfVehicleUseService.findByNatureOfVehicleUseEntityPagingDynamic(natureOfVehicleUse, pageSize, pageNumber);
         if (null != natureOfVehicleUseEntities) {
             return new ResponseBean(200, "成功", natureOfVehicleUseEntities);
         } else {
             throw new UnauthorizedException();
         }
+    }
 
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findByNatureOfVehicleUseEntityPagingDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<NatureOfVehicleUseEntity> findByNatureOfVehicleUseEntityPagingDynamic(@Valid DataTablesInput input) {
+        return iNatureOfVehicleUseDao.findAll(input);
     }
 }

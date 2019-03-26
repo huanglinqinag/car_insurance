@@ -1,8 +1,10 @@
 package com.uhb.car.controller;
 
 import com.uhb.car.bean.ResponseBean;
+import com.uhb.car.dao.IVehicleAndVesselTaxDao;
 import com.uhb.car.entity.DisplacementEntity;
 import com.uhb.car.entity.VehicleAndVesselTaxEntity;
+import com.uhb.car.entity.VehicleInformationEntity;
 import com.uhb.car.exception.UnauthorizedException;
 import com.uhb.car.services.IVehicleAndVesselTaxService;
 import io.swagger.annotations.Api;
@@ -13,9 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 
 /**
@@ -32,6 +38,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class VehicleAndVesselTaxController {
     @Autowired
     IVehicleAndVesselTaxService iVehicleAndVesselTaxService;
+    @Autowired
+    IVehicleAndVesselTaxDao iVehicleAndVesselTaxDao;
 
     @ApiOperation(value = "添加车船税", notes = "需要三个参数")
     @ApiImplicitParams({
@@ -102,13 +110,19 @@ public class VehicleAndVesselTaxController {
             @ApiImplicitParam(name = "pageSize", value = "页数", required = true, dataType = "int"),
             @ApiImplicitParam(name = "pageNumber", value = "每页显示条数", required = true, dataType = "int"),
     })
-    @RequestMapping(value = "/findAllByVehicleAndVesselTaxEntityDynamic", method = RequestMethod.GET)
-    public ResponseBean findAllByVehicleAndVesselTaxEntityDynamic(Integer displacementId, Integer pageNumber, Integer pageSize) {
+    @RequestMapping(value = "/findAllByVehicleAndVesselTaxEntityDynamicOne", method = RequestMethod.GET)
+    public ResponseBean findAllByVehicleAndVesselTaxEntityDynamicOne(Integer displacementId, Integer pageNumber, Integer pageSize) {
         Page<VehicleAndVesselTaxEntity> vehicleAndVesselTaxEntities = iVehicleAndVesselTaxService.findAllByVehicleAndVesselTaxEntityDynamic(displacementId, pageNumber, pageSize);
         if (null != vehicleAndVesselTaxEntities) {
             return new ResponseBean(200, "成功", vehicleAndVesselTaxEntities);
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @ApiOperation(value = "动态分页查询", notes = "需要模糊查询")
+    @RequestMapping(value = "/findAllByVehicleAndVesselTaxEntityDynamic", method = RequestMethod.GET)
+    public DataTablesOutput<VehicleAndVesselTaxEntity> findAllByVehicleAndVesselTaxEntityDynamic(@Valid DataTablesInput input) {
+        return iVehicleAndVesselTaxDao.findAll(input);
     }
 }

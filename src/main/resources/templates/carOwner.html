@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/carOwnerUploadImg" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td><input type="text" name="carOwnerId"></td>
+        </tr>
+        <tr>
+            <td>车主名称</td>
+            <td><input type="text" name="theOwnerName"></td>
+        </tr>
+        <tr>
+            <td>车主性质</td>
+            <td><input type="text" name="natrueOfTheOwner"></td>
+        </tr>
+        <tr>
+            <td>证件类型</td>
+            <td><input type="text" name="idTypeId"></td>
+        </tr>
+        <tr>
+            <td>证件号码</td>
+            <td><input type="text" name="idNumber"></td>
+        </tr>
+        <td>被保人与车辆关系</td>
+        <td><input type="text" name="relation"></td>
+        </tr>
+        <tr>
+            <td>图片</td>
+            <td><input type="file" name="image" value="选择1"></td>
+            <td><input type="file" name="image" value="选择2"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="提交"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

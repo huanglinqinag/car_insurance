@@ -48,8 +48,12 @@ public class IdTypeEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         IdTypeEntity that = (IdTypeEntity) o;
         return idTypeId == that.idTypeId &&
                 ownerNature == that.ownerNature &&

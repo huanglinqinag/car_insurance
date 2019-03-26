@@ -84,7 +84,7 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
             @Override
             public Predicate toPredicate(Root<VehicleTypeEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
-                if (null != typeName && !typeName.equals("")) {
+                if (null != typeName && !"".equals(typeName)) {
                     predicateList.add(criteriaBuilder.like(root.get("typeName"), "%" + typeName + "%"));
                 }
                 Predicate[] predicates = new Predicate[predicateList.size()];

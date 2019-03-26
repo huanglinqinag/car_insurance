@@ -56,6 +56,9 @@ public class ClaimSettlementServiceImpl implements IClaimSettlementService {
             @Override
             public Predicate toPredicate(Root<ClaimSettlementEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList = new ArrayList<>();
+                if (null != claimSettlement.getName()) {
+                    predicateList.add(criteriaBuilder.like(root.get("name"), "%" + claimSettlement.getName() + "%"));
+                }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return criteriaBuilder.and(predicateList.toArray(predicates));
             }
